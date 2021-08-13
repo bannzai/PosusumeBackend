@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --respawn src/index.ts",
-    "start": "node build/src/index.js"
+    "start": "node build/src/index.js",
+    "codegen": "graphql-codegen --config codegen.yml"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.0.1",
