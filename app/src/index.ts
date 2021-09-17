@@ -59,21 +59,22 @@ const schemaWithResolvers = addResolversToSchema({ schema, resolvers });
 const setUserIDForMe = async (
   request: express.Request
 ): Promise<Context["me"]> => {
+  if (process.env["APP_FIREBASE_AUTH_TEST_USER_ID"] != null) {
+    return {
+      userID: process.env["APP_FIREBASE_AUTH_TEST_USER_ID"],
+    };
+  }
+
   const token = request.headers.authorization;
   if (token === undefined) {
     return null;
   }
 
-  let userID: string;
-  if (process.env["APP_FIREBASE_AUTH_TEST_USER_ID"] != null) {
-    userID = process.env["APP_FIREBASE_AUTH_TEST_USER_ID"];
-  } else {
-    const decodedToken = await admin.auth().verifyIdToken(token);
-    userID = decodedToken.uid;
-  }
+  const decodedToken = await admin.auth().verifyIdToken(token);
+  const userID = decodedToken.uid;
 
   return {
-    userID: null,
+    userID: userID,
   };
 };
 
