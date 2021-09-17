@@ -87,6 +87,7 @@ const server = new ApolloServer({
   debug: process.env["APP_ENVIRONMENT"] === "DEVELOPMENT",
 });
 
-server.listen().then(({ url }) => {
+const port = process.env.PORT || 8081;
+server.listen(port).then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`);
 });
