@@ -65,10 +65,19 @@ const setUserIDForMe = async (
     };
   }
 
-  const token = request.headers.authorization;
-  if (token === undefined) {
+  const authorization = request.headers.authorization;
+  if (authorization == null) {
     return null;
   }
+  const splited = authorization.split(" ");
+  if (splited.length !== 2) {
+    return null;
+  }
+  const bearer = splited[0];
+  if (bearer !== "Bearer") {
+    return null;
+  }
+  const token = splited[1];
 
   const decodedToken = await admin.auth().verifyIdToken(token);
   const userID = decodedToken.uid;
@@ -80,7 +89,7 @@ const setUserIDForMe = async (
 
 const server = new ApolloServer({
   schema: schemaWithResolvers,
-  introspection: process.env["APP_ENVIRONMENT"] === "DEVELOPMENT",
+  introspection: true,
   context: async (expressContext) =>
     ({
       me: await setUserIDForMe(expressContext.req),
