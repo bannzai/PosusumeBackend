@@ -30,13 +30,17 @@ const schema = loadSchemaSync(join(__dirname, "../schemas/schema.graphql"), {
 const resolvers: Resolvers = {
   Query: {
     me: (_parent, _args, _context) => {
-      return _context.me;
+      return Object.assign(_context.me, { books: [] });
+    },
+  },
+  Me: {
+    books: (_parent, _args, _context) => {
+      return books;
     },
   },
   Mutation: {
     addBook: async (_parent, _args, _context) => {
-      await admin
-        .firestore()
+      await _context.database
         .collection(`users/${_context.me!.userID}/books`)
         .doc()
         .set(
@@ -95,6 +99,7 @@ const server = new ApolloServer({
   introspection: true,
   context: async (expressContext) => ({
     me: await setUserIDForMe(expressContext.req),
+    database: admin.firestore(),
   }),
   debug: process.env["APP_ENVIRONMENT"] === "DEVELOPMENT",
 });

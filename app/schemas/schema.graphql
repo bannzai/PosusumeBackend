@@ -5,11 +5,11 @@ type Book {
 
 type Me {
   userID: String!
+  books: [Book!]!
 }
 
 type Query {
   me: Me
-  books: [Book!]!
 }
 
 type Mutation {

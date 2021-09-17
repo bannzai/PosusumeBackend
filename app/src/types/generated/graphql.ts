@@ -22,6 +22,7 @@ export type Book = {
 export type Me = {
   __typename?: 'Me';
   userID: Scalars['String'];
+  books: Array<Book>;
 };
 
 export type Mutation = {
@@ -32,7 +33,6 @@ export type Mutation = {
 export type Query = {
   __typename?: 'Query';
   me?: Maybe<Me>;
-  books: Array<Book>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -131,6 +131,7 @@ export type BookResolvers<ContextType = Context, ParentType extends ResolversPar
 
 export type MeResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Me'] = ResolversParentTypes['Me']> = ResolversObject<{
   userID?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  books?: Resolver<Array<ResolversTypes['Book']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -140,7 +141,6 @@ export type MutationResolvers<ContextType = Context, ParentType extends Resolver
 
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   me?: Resolver<Maybe<ResolversTypes['Me']>, ParentType, ContextType>;
-  books?: Resolver<Array<ResolversTypes['Book']>, ParentType, ContextType>;
 }>;
 
 export type Resolvers<ContextType = Context> = ResolversObject<{
