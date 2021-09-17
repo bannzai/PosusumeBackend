@@ -19,6 +19,11 @@ export type Book = {
   author?: Maybe<Scalars['String']>;
 };
 
+export type Me = {
+  __typename?: 'Me';
+  userID: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   addBook: Book;
@@ -26,6 +31,7 @@ export type Mutation = {
 
 export type Query = {
   __typename?: 'Query';
+  me?: Maybe<Me>;
   books: Array<Book>;
 };
 
@@ -101,6 +107,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = ResolversObject<{
   Book: ResolverTypeWrapper<Book>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  Me: ResolverTypeWrapper<Me>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
@@ -110,6 +117,7 @@ export type ResolversTypes = ResolversObject<{
 export type ResolversParentTypes = ResolversObject<{
   Book: Book;
   String: Scalars['String'];
+  Me: Me;
   Mutation: {};
   Query: {};
   Boolean: Scalars['Boolean'];
@@ -121,16 +129,23 @@ export type BookResolvers<ContextType = Context, ParentType extends ResolversPar
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type MeResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Me'] = ResolversParentTypes['Me']> = ResolversObject<{
+  userID?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
   addBook?: Resolver<ResolversTypes['Book'], ParentType, ContextType>;
 }>;
 
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
+  me?: Resolver<Maybe<ResolversTypes['Me']>, ParentType, ContextType>;
   books?: Resolver<Array<ResolversTypes['Book']>, ParentType, ContextType>;
 }>;
 
 export type Resolvers<ContextType = Context> = ResolversObject<{
   Book?: BookResolvers<ContextType>;
+  Me?: MeResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
 }>;

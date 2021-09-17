@@ -3,7 +3,12 @@ type Book {
   author: String
 }
 
+type Me {
+  userID: String!
+}
+
 type Query {
+  me: Me
   books: [Book!]!
 }
 

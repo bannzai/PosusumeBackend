@@ -29,8 +29,8 @@ const schema = loadSchemaSync(join(__dirname, "../schemas/schema.graphql"), {
 
 const resolvers: Resolvers = {
   Query: {
-    books: (_parent, _args, _context) => {
-      return books;
+    me: (_parent, _args, _context) => {
+      return _context.me;
     },
   },
   Mutation: {
