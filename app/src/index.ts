@@ -37,7 +37,18 @@ const resolvers: Resolvers = {
     },
   },
   Mutation: {
-    addBook: (_parent, _args, _context) => {
+    addBook: async (_parent, _args, _context) => {
+      await admin
+        .firestore()
+        .collection(`users/test_identifier/books`)
+        .doc()
+        .set(
+          {
+            title: "Give me star",
+            author: "bannzai",
+          },
+          { merge: true }
+        );
       return {
         title: "Give me star",
         author: "bannzai",
