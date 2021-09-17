@@ -4,3 +4,4 @@ yarn-error.log
 firestore-debug.log
 pubsub-debug.log
 ui-debug.log
+firebase-debug.log
