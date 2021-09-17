@@ -6,6 +6,11 @@ import { join } from "path";
 import { Resolvers } from "./types/generated/graphql";
 import { Context } from "./types/context";
 
+import admin = require("firebase-admin");
+import express = require("express");
+
+admin.initializeApp();
+
 // サンプルデータの定義
 const books = [
   {
@@ -18,48 +23,68 @@ const books = [
   },
 ];
 
-// スキーマの定義
 const schema = loadSchemaSync(join(__dirname, "../schemas/schema.graphql"), {
   loaders: [new GraphQLFileLoader()],
 });
 
-// リゾルバーの定義 (型のサポートを受けれる)
 const resolvers: Resolvers = {
   Query: {
     books: (_parent, _args, _context) => {
-      // TODO: 詳細な認可処理を行う
-
       return books;
+    },
+  },
+  Mutation: {
+    addBook: async (_parent, _args, _context) => {
+      await admin
+        .firestore()
+        .collection(`users/${_context.me!.userID}/books`)
+        .doc()
+        .set(
+          {
+            title: "Give me star",
+            author: "bannzai",
+          },
+          { merge: true }
+        );
+      return {
+        title: "Give me star",
+        author: "bannzai",
+      };
     },
   },
 };
 
 const schemaWithResolvers = addResolversToSchema({ schema, resolvers });
 
-const getUser = (token?: string): Context["user"] => {
-  if (token === undefined) {
-    throw new AuthenticationError(
-      "認証されていないユーザーはリソースにアクセスできません"
-    );
+const setUserIDForMe = async (
+  request: express.Request
+): Promise<Context["me"]> => {
+  if (process.env["APP_FIREBASE_AUTH_TEST_USER_ID"] != null) {
+    return {
+      userID: process.env["APP_FIREBASE_AUTH_TEST_USER_ID"],
+    };
   }
 
-  // TODO: Tokenからユーザー情報を取り出す処理
+  const token = request.headers.authorization;
+  if (token === undefined) {
+    return null;
+  }
+
+  const decodedToken = await admin.auth().verifyIdToken(token);
+  const userID = decodedToken.uid;
 
   return {
-    name: "dummy name",
-    email: "dummy@example.com",
-    token,
+    userID: userID,
   };
 };
 
-// サーバーの起動
 const server = new ApolloServer({
   schema: schemaWithResolvers,
-  context: ({ req }) =>
+  context: async (expressContext) =>
     ({
-      user: getUser(req.headers.authorization),
+      me: await setUserIDForMe(expressContext.req),
     } as Context),
-  debug: false, // エラーレスポンスにスタックトレースを含ませない、開発環境ではtrueにした方が分析が捗りそう
+  debug: process.env["APP_ENVIRONMENT"] === "DEVELOPMENT",
 });
 
 server.listen().then(({ url }) => {

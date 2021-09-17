@@ -6,3 +6,7 @@ type Book {
 type Query {
   books: [Book!]!
 }
+
+type Mutation {
+  addBook: Book!
+}
