@@ -90,10 +90,9 @@ const setUserIDForMe = async (
 const server = new ApolloServer({
   schema: schemaWithResolvers,
   introspection: true,
-  context: async (expressContext) =>
-    ({
-      me: await setUserIDForMe(expressContext.req),
-    } as Context),
+  context: async (expressContext) => ({
+    me: await setUserIDForMe(expressContext.req),
+  }),
   debug: process.env["APP_ENVIRONMENT"] === "DEVELOPMENT",
 });
 
