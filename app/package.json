@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev --respawn src/index.ts",
     "firebase": "firebase emulators:start",
-    "start": "node build/src/index.js",
+    "start": "node build/index.js",
     "codegen": "graphql-codegen --config codegen.yml"
   },
   "devDependencies": {
