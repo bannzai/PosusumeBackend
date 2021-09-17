@@ -77,8 +77,8 @@ const setUserIDForMe = async (
   if (bearer !== "Bearer") {
     return null;
   }
-  const token = splited[1];
 
+  const token = splited[1];
   const decodedToken = await admin.auth().verifyIdToken(token);
   const userID = decodedToken.uid;
 
