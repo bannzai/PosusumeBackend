@@ -37,7 +37,7 @@ const resolvers: Resolvers = {
     addBook: async (_parent, _args, _context) => {
       await admin
         .firestore()
-        .collection(`users/test_identifier/books`)
+        .collection(`users/${_context.me!.userID}/books`)
         .doc()
         .set(
           {
@@ -61,9 +61,7 @@ const setUserIDForMe = async (
 ): Promise<Context["me"]> => {
   const token = request.headers.authorization;
   if (token === undefined) {
-    return {
-      userID: null,
-    };
+    return null;
   }
 
   let userID: string;
@@ -75,7 +73,7 @@ const setUserIDForMe = async (
   }
 
   return {
-    userID: userID,
+    userID: null,
   };
 };
 
