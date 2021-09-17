@@ -59,7 +59,10 @@ const schemaWithResolvers = addResolversToSchema({ schema, resolvers });
 const setUserIDForMe = async (
   request: express.Request
 ): Promise<Context["me"]> => {
-  if (process.env["APP_FIREBASE_AUTH_TEST_USER_ID"] != null) {
+  if (
+    process.env["APP_ENVIRONMENT"] === "DEVELOPMENT" &&
+    process.env["APP_FIREBASE_AUTH_TEST_USER_ID"] != null
+  ) {
     return {
       userID: process.env["APP_FIREBASE_AUTH_TEST_USER_ID"],
     };
