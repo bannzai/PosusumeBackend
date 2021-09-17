@@ -23,17 +23,13 @@ const books = [
   },
 ];
 
-// スキーマの定義
 const schema = loadSchemaSync(join(__dirname, "../schemas/schema.graphql"), {
   loaders: [new GraphQLFileLoader()],
 });
 
-// リゾルバーの定義 (型のサポートを受けれる)
 const resolvers: Resolvers = {
   Query: {
     books: (_parent, _args, _context) => {
-      // TODO: 詳細な認可処理を行う
-
       return books;
     },
   },
@@ -83,7 +79,6 @@ const setUserIDForMe = async (
   };
 };
 
-// サーバーの起動
 const server = new ApolloServer({
   schema: schemaWithResolvers,
   context: async (expressContext) =>
