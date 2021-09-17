@@ -6,6 +6,10 @@ import { join } from "path";
 import { Resolvers } from "./types/generated/graphql";
 import { Context } from "./types/context";
 
+import admin = require("firebase-admin");
+
+admin.initializeApp();
+
 // サンプルデータの定義
 const books = [
   {
@@ -30,6 +34,14 @@ const resolvers: Resolvers = {
       // TODO: 詳細な認可処理を行う
 
       return books;
+    },
+  },
+  Mutation: {
+    addBook: (_parent, _args, _context) => {
+      return {
+        title: "Give me star",
+        author: "bannzai",
+      };
     },
   },
 };
