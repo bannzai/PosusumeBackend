@@ -7,6 +7,7 @@ import { Resolvers } from "./types/generated/graphql";
 import { Context } from "./types/context";
 
 import admin = require("firebase-admin");
+import express = require("express");
 
 admin.initializeApp();
 
@@ -59,30 +60,37 @@ const resolvers: Resolvers = {
 
 const schemaWithResolvers = addResolversToSchema({ schema, resolvers });
 
-const getUser = (token?: string): Context["user"] => {
+const setUserIDForMe = async (
+  request: express.Request
+): Promise<Context["me"]> => {
+  const token = request.headers.authorization;
   if (token === undefined) {
-    throw new AuthenticationError(
-      "認証されていないユーザーはリソースにアクセスできません"
-    );
+    return {
+      userID: null,
+    };
   }
 
-  // TODO: Tokenからユーザー情報を取り出す処理
+  let userID: string;
+  if (process.env["APP_FIREBASE_AUTH_TEST_USER_ID"] != null) {
+    userID = process.env["APP_FIREBASE_AUTH_TEST_USER_ID"];
+  } else {
+    const decodedToken = await admin.auth().verifyIdToken(token);
+    userID = decodedToken.uid;
+  }
 
   return {
-    name: "dummy name",
-    email: "dummy@example.com",
-    token,
+    userID: userID,
   };
 };
 
 // サーバーの起動
 const server = new ApolloServer({
   schema: schemaWithResolvers,
-  context: ({ req }) =>
+  context: async (expressContext) =>
     ({
-      user: getUser(req.headers.authorization),
+      me: await setUserIDForMe(expressContext.req),
     } as Context),
-  debug: false, // エラーレスポンスにスタックトレースを含ませない、開発環境ではtrueにした方が分析が捗りそう
+  debug: process.env["APP_ENVIRONMENT"] === "DEVELOPMENT",
 });
 
 server.listen().then(({ url }) => {
