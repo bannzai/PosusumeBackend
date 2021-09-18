@@ -25,9 +25,7 @@ jobs:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
         service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
         export_default_credentials: true
-    - uses: actions/checkout@v1
-    - uses: actions/setup-java@v1
-      run: gcloud auth configure-docker --quiet
+    - run: gcloud auth configure-docker --quiet
     - run: docker build -t posusume-dev --target source ./
     - run: docker push {{ secrets.DOCKER_IMAGE_BASE_PATH }}
     - run: |
