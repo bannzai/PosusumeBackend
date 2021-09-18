@@ -3,7 +3,7 @@ import { loadSchemaSync } from "@graphql-tools/load";
 import { GraphQLFileLoader } from "@graphql-tools/graphql-file-loader";
 import { addResolversToSchema } from "@graphql-tools/schema";
 import { join } from "path";
-import { Resolvers } from "./types/generated/graphql";
+import { Resolvers, User } from "./types/generated/graphql";
 import { Context } from "./types/context";
 
 import admin = require("firebase-admin");
@@ -29,13 +29,21 @@ const schema = loadSchemaSync(join(__dirname, "../schemas/schema.graphql"), {
 
 const resolvers: Resolvers = {
   Query: {
-    me: (_parent, _args, _context) => {
-      return Object.assign(_context.me, { books: [] });
+    me: (_parent, _args, _context, _info) => {
+      return _context.me as any;
     },
   },
   Me: {
     books: (_parent, _args, _context) => {
-      return books;
+      return [{ title: "title" }];
+    },
+  },
+  Book: {
+    authors: (_parent, _args, _context) => {
+      return [{ id: "hogehoge" }];
+    },
+    author: (_parent, _args, _context) => {
+      return { id: "fugafuga" };
     },
   },
   Mutation: {
@@ -46,13 +54,13 @@ const resolvers: Resolvers = {
         .set(
           {
             title: "Give me star",
-            author: "bannzai",
+            author: { id: "bannzai" },
           },
           { merge: true }
         );
       return {
         title: "Give me star",
-        author: "bannzai",
+        authors: [],
       };
     },
   },

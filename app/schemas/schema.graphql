@@ -1,6 +1,10 @@
+type User {
+  id: ID!
+}
 type Book {
   title: String
-  author: String
+  authors: [User!]!
+  author: User!
 }
 
 type Me {
