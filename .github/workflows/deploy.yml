@@ -30,11 +30,11 @@ jobs:
     - run: docker push {{ secrets.DOCKER_IMAGE_BASE_PATH }}
     - name: Deploy to Cloud Run
       env:
-        SERVICE_NAME: {{ secrets.SERVICE_NAME }}
-        IMAGE: {{ secrets.DOCKER_IMAGE_BASE_PATH }}
-        PORT: {{ secrets.PORT }}
-        GCP_PROJECT_ID: {{ secrets.GCP_PROJECT_ID }}
-        GCP_REGION: {{ secrets.GCP_REGION }}
+        SERVICE_NAME: ${{ secrets.SERVICE_NAME }}
+        IMAGE: ${{ secrets.DOCKER_IMAGE_BASE_PATH }}
+        PORT: ${{ secrets.PORT }}
+        GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+        GCP_REGION: ${{ secrets.GCP_REGION }}
       run: |
           gcloud run deploy $SERVICE_NAME \
             --image $IMAGE \
