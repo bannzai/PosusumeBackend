@@ -11,6 +11,8 @@ on:
     branches: [ main, feature/* ]
 
 
+env:
+  DOCKER_IMAGE: ${{ secrets.DOCKER_IMAGE_BASE_PATH }}:${{ github.sha }}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,12 +26,11 @@ jobs:
         service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
         export_default_credentials: true
     - run: gcloud auth configure-docker --quiet
-    - run: docker build -t posusume-dev --target runner ./app
-    - run: docker push posusume-dev
+    - run: docker build -t $DOCKER_IMAGE --target runner ./app
+    - run: docker push $DOCKER_IMAGE
     - name: Deploy to Cloud Run
       env:
         SERVICE_NAME: ${{ secrets.SERVICE_NAME }}
-        DOCKER_IMAGE: ${{ secrets.DOCKER_IMAGE_BASE_PATH }}:${{ github.sha }}
         PORT: ${{ secrets.PORT }}
         GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
         GCP_REGION: ${{ secrets.GCP_REGION }}
