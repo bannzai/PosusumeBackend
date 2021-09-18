@@ -26,7 +26,7 @@ jobs:
         service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
         export_default_credentials: true
     - run: gcloud auth configure-docker --quiet
-    - run: docker build -t posusume-dev --target source ./app
+    - run: docker build -t posusume-dev --target runner ./app
     - run: docker push {{ secrets.DOCKER_IMAGE_BASE_PATH }}
     - name: Deploy to Cloud Run
       env:
