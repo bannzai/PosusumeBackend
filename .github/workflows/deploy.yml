@@ -10,7 +10,8 @@ on:
   pull_request:
     branches: [ main, feature/* ]
 
-env: DOCKER_IMAGE_PATH: ${{ secrets.DOCKER_IMAGE_BASE_PATH }}:${{ github.sha }}
+env: 
+  DOCKER_IMAGE_PATH: ${{ secrets.DOCKER_IMAGE_BASE_PATH }}:${{ github.sha }}
 
 jobs:
   build:
