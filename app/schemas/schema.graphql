@@ -1,10 +1,19 @@
+type User {
+  id: ID!
+}
 type Book {
   title: String
-  author: String
+  authors: [User!]!
+  author: User!
+}
+
+type Me {
+  userID: String!
+  books: [Book!]!
 }
 
 type Query {
-  books: [Book!]!
+  me: Me
 }
 
 type Mutation {

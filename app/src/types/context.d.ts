@@ -1,5 +1,7 @@
+import { Me } from "./me";
+import admin = require("firebase-admin");
+
 export type Context = {
-  me?: {
-    userID: string | null;
-  } | null;
+  me: Me | null;
+  database: admin.firestore;
 };
