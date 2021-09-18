@@ -26,7 +26,6 @@ jobs:
     - run: gcloud auth configure-docker --quiet
     - run: docker build -t posusume-dev --target runner ./app
     - run: docker push posusume-dev
-      env:
     - name: Deploy to Cloud Run
       env:
         SERVICE_NAME: ${{ secrets.SERVICE_NAME }}
