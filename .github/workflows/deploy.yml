@@ -10,8 +10,6 @@ on:
   pull_request:
     branches: [ main, feature/* ]
 
-env: 
-  DOCKER_IMAGE_PATH: ${{ secrets.DOCKER_IMAGE_BASE_PATH }}:${{ github.sha }}
 
 jobs:
   build:
@@ -27,7 +25,9 @@ jobs:
         export_default_credentials: true
     - run: gcloud auth configure-docker --quiet
     - run: docker build -t posusume-dev --target runner ./app
-    - run: docker push ${{ secrets.DOCKER_IMAGE_BASE_PATH }}
+    - run: docker push $DOCKER_IMAGE_PATH
+      env:
+        DOCKER_IMAGE_PATH: ${{ secrets.DOCKER_IMAGE_BASE_PATH }}:${{ github.sha }}
     - name: Deploy to Cloud Run
       env:
         SERVICE_NAME: ${{ secrets.SERVICE_NAME }}
