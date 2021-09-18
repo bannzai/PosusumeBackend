@@ -1,0 +1,46 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Test
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the main branch
+on:
+  push:
+    branches: [ main, feature/* ]
+  pull_request:
+    branches: [ main, feature/* ]
+
+env: DOCKER_IMAGE_PATH: ${{ secrets.DOCKER_IMAGE_BASE_PATH }}:${{ github.sha }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.pull_request.title, '[Skip CI]') }}
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@master
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+        service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+        export_default_credentials: true
+    - uses: actions/checkout@v1
+    - uses: actions/setup-java@v1
+      run: gcloud auth configure-docker --quiet
+    - run: docker build -t posusume-dev --target source ./
+    - run: docker push {{ secrets.DOCKER_IMAGE_BASE_PATH }}
+    - run: |
+          gcloud run deploy $SERVICE_NAME \
+            --image $IMAGE \
+            --port $PORT \
+            --project $GCP_PROJECT_ID \
+            --region $GCP_REGION \
+            --allow-unauthenticated \
+            --quiet
+      env: 
+        SERVICE_NAME: {{ secrets.SERVICE_NAME }}
+        IMAGE: {{ secrets.DOCKER_IMAGE_BASE_PATH }}
+        PORT: {{ secrets.PORT }}
+        GCP_PROJECT_ID: {{ secrets.GCP_PROJECT_ID }}
+        GCP_REGION: {{ secrets.GCP_REGION }}
+
