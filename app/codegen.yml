@@ -4,6 +4,7 @@ generates:
     schema: schemas/schema.graphql
     config:
       useIndexSignature: true
+      defaultMapper: Partial<{T}>
       contextType: ../context#Context
     plugins:
       - typescript
