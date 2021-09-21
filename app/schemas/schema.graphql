@@ -1,21 +1,28 @@
-type User {
+interface Node {
   id: ID!
 }
-type Book {
-  title: String
-  authors: [User!]!
+
+type Spot implements Node {
+  id: ID!
+  title: String!
+  imageFileName: String
+  createdDate: Date!
+  deletedDate: Date
+  archivedDate: Date
   author: User!
 }
 
-type Me {
-  userID: String!
-  books: [Book!]!
+type User implements Node {
+  id: ID!
+}
+
+type Me implements Node {
+  id: ID!
+  spots: [Spot!]!
 }
 
 type Query {
   me: Me
 }
 
-type Mutation {
-  addBook: Book!
-}
+scalar Date

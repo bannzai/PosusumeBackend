@@ -1,4 +1,4 @@
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import { Context } from '../context';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -11,24 +11,18 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  Date: any;
 };
 
-export type Book = {
-  __typename?: 'Book';
-  title?: Maybe<Scalars['String']>;
-  authors: Array<User>;
-  author: User;
-};
 
-export type Me = {
+export type Me = Node & {
   __typename?: 'Me';
-  userID: Scalars['String'];
-  books: Array<Book>;
+  id: Scalars['ID'];
+  spots: Array<Spot>;
 };
 
-export type Mutation = {
-  __typename?: 'Mutation';
-  addBook: Book;
+export type Node = {
+  id: Scalars['ID'];
 };
 
 export type Query = {
@@ -36,7 +30,18 @@ export type Query = {
   me?: Maybe<Me>;
 };
 
-export type User = {
+export type Spot = Node & {
+  __typename?: 'Spot';
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  imageFileName?: Maybe<Scalars['String']>;
+  createdDate: Scalars['Date'];
+  deletedDate?: Maybe<Scalars['Date']>;
+  archivedDate?: Maybe<Scalars['Date']>;
+  author: User;
+};
+
+export type User = Node & {
   __typename?: 'User';
   id: Scalars['ID'];
 };
@@ -111,47 +116,58 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
-  Book: ResolverTypeWrapper<Partial<Book>>;
-  String: ResolverTypeWrapper<Partial<Scalars['String']>>;
+  Date: ResolverTypeWrapper<Partial<Scalars['Date']>>;
   Me: ResolverTypeWrapper<Partial<Me>>;
-  Mutation: ResolverTypeWrapper<{}>;
-  Query: ResolverTypeWrapper<{}>;
-  User: ResolverTypeWrapper<Partial<User>>;
   ID: ResolverTypeWrapper<Partial<Scalars['ID']>>;
+  Node: ResolversTypes['Me'] | ResolversTypes['Spot'] | ResolversTypes['User'];
+  Query: ResolverTypeWrapper<{}>;
+  Spot: ResolverTypeWrapper<Partial<Spot>>;
+  String: ResolverTypeWrapper<Partial<Scalars['String']>>;
+  User: ResolverTypeWrapper<Partial<User>>;
   Boolean: ResolverTypeWrapper<Partial<Scalars['Boolean']>>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
-  Book: Partial<Book>;
-  String: Partial<Scalars['String']>;
+  Date: Partial<Scalars['Date']>;
   Me: Partial<Me>;
-  Mutation: {};
-  Query: {};
-  User: Partial<User>;
   ID: Partial<Scalars['ID']>;
+  Node: ResolversParentTypes['Me'] | ResolversParentTypes['Spot'] | ResolversParentTypes['User'];
+  Query: {};
+  Spot: Partial<Spot>;
+  String: Partial<Scalars['String']>;
+  User: Partial<User>;
   Boolean: Partial<Scalars['Boolean']>;
 }>;
 
-export type BookResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Book'] = ResolversParentTypes['Book']> = ResolversObject<{
-  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  authors?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
-  author?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
+export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
+  name: 'Date';
+}
 
 export type MeResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Me'] = ResolversParentTypes['Me']> = ResolversObject<{
-  userID?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  books?: Resolver<Array<ResolversTypes['Book']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  spots?: Resolver<Array<ResolversTypes['Spot']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
-  addBook?: Resolver<ResolversTypes['Book'], ParentType, ContextType>;
+export type NodeResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = ResolversObject<{
+  __resolveType: TypeResolveFn<'Me' | 'Spot' | 'User', ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
 }>;
 
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   me?: Resolver<Maybe<ResolversTypes['Me']>, ParentType, ContextType>;
+}>;
+
+export type SpotResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Spot'] = ResolversParentTypes['Spot']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  imageFileName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  createdDate?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
+  deletedDate?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  archivedDate?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  author?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type UserResolvers<ContextType = Context, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
@@ -160,10 +176,11 @@ export type UserResolvers<ContextType = Context, ParentType extends ResolversPar
 }>;
 
 export type Resolvers<ContextType = Context> = ResolversObject<{
-  Book?: BookResolvers<ContextType>;
+  Date?: GraphQLScalarType;
   Me?: MeResolvers<ContextType>;
-  Mutation?: MutationResolvers<ContextType>;
+  Node?: NodeResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  Spot?: SpotResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 }>;
 
