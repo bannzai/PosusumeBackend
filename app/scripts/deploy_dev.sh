@@ -14,6 +14,6 @@ gcloud run deploy $APP_DEV_SERVICE_NAME \
   --port $APP_DEV_SERVER_PORT \
   --project $APP_DEV_GCP_PROJECT_ID \
   --region $APP_DEV_GCP_REGION \
-  --set-env-vars APP_FIREBASE_AUTH_TEST_USER_ID=${APP_FIREBASE_AUTH_TEST_USER_ID:-""}
+  --set-env-vars APP_FIREBASE_AUTH_TEST_USER_ID=${APP_FIREBASE_AUTH_TEST_USER_ID:-""},APP_ENVIRONMENT=DEVELOPMENT
   --allow-unauthenticated \
   --quiet
