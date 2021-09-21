@@ -3,13 +3,11 @@ import { loadSchemaSync } from "@graphql-tools/load";
 import { GraphQLFileLoader } from "@graphql-tools/graphql-file-loader";
 import { addResolversToSchema } from "@graphql-tools/schema";
 import { join } from "path";
-import { Resolvers, User } from "./types/generated/graphql";
 import { Context } from "./types/context";
 
 import admin = require("firebase-admin");
 import express = require("express");
-import { spotResolver } from "./resolvers/query/spot";
-import { meResolver } from "./resolvers/query/me";
+import { resolvers } from "./resolvers/query/root";
 
 admin.initializeApp();
 
@@ -28,16 +26,6 @@ const books = [
 const schema = loadSchemaSync(join(__dirname, "../schemas/schema.graphql"), {
   loaders: [new GraphQLFileLoader()],
 });
-
-const resolvers: Resolvers = {
-  Query: {
-    me: (_parent, _args, _context, _info) => {
-      return _context.me as any;
-    },
-  },
-  Spot: spotResolver,
-  Me: meResolver,
-};
 
 const schemaWithResolvers = addResolversToSchema({ schema, resolvers });
 
