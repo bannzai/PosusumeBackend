@@ -17,15 +17,15 @@ export const setUserIDForMe = async (
 
   const authorization = request.headers.authorization;
   if (authorization == null) {
-    return null;
+    throw "Authorization header not found";
   }
   const splited = authorization.split(" ");
   if (splited.length !== 2) {
-    return null;
+    throw "Unexpected Authorization header format";
   }
   const bearer = splited[0];
   if (bearer !== "Bearer") {
-    return null;
+    throw "Unexpected Authorization header format";
   }
 
   const token = splited[1];

@@ -2,6 +2,6 @@ import { Me } from "./me";
 import admin = require("firebase-admin");
 
 export type Context = {
-  me: Me | null;
+  me: Me;
   database: FirebaseFirestore.Firestore;
 };
