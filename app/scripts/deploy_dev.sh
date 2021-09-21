@@ -5,7 +5,9 @@ COMMIT_HASH=$(git rev-parse HEAD)
 DOCKER_IMAGE="$APP_DEVELOPMENT_DOCKER_IMAGE_BASE_PATH:$COMMIT_HASH"
 echo "docker build name and push to $DOCKER_IMAGE"
 
-docker build -t "$DOCKER_IMAGE" --target runner .
+# Avoid error for M1 mac
+# https://stackoverflow.com/questions/66127933/cloud-run-failed-to-start-and-then-listen-on-the-port-defined-by-the-port-envi
+docker build --platform linux/amd64 -t "$DOCKER_IMAGE" --target runner .
 docker push "$DOCKER_IMAGE"
 gcloud run deploy $APP_DEV_SERVICE_NAME \
   --image $DOCKER_IMAGE \
