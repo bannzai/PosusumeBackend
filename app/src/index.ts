@@ -6,7 +6,6 @@ import { join } from "path";
 import admin = require("firebase-admin");
 import { resolvers } from "./resolvers/root";
 import { setUserIDForMe } from "./types/contextHelper";
-import { firestore } from "firebase-admin";
 
 admin.initializeApp();
 
@@ -18,7 +17,7 @@ const schemaWithResolvers = addResolversToSchema({ schema, resolvers });
 
 const server = new ApolloServer({
   schema: schemaWithResolvers,
-  introspection: true,
+  introspection: process.env["APP_ENVIRONMENT"] === "DEVELOPMENT",
   context: async (expressContext) => ({
     me: await setUserIDForMe(expressContext.req),
     database: admin.firestore(),
