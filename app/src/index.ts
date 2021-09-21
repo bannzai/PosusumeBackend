@@ -11,18 +11,6 @@ import { resolvers } from "./resolvers/root";
 
 admin.initializeApp();
 
-// サンプルデータの定義
-const books = [
-  {
-    title: "The Awakening",
-    author: "Kate Chopin",
-  },
-  {
-    title: "City of Glass",
-    author: "Paul Auster",
-  },
-];
-
 const schema = loadSchemaSync(join(__dirname, "../schemas/schema.graphql"), {
   loaders: [new GraphQLFileLoader()],
 });
