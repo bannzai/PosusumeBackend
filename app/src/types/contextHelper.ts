@@ -7,7 +7,8 @@ export const setUserIDForMe = async (
 ): Promise<Context["me"]> => {
   if (
     process.env["APP_ENVIRONMENT"] === "DEVELOPMENT" &&
-    process.env["APP_FIREBASE_AUTH_TEST_USER_ID"] != null
+    process.env["APP_FIREBASE_AUTH_TEST_USER_ID"] != null &&
+    process.env["APP_FIREBASE_AUTH_TEST_USER_ID"].length !== 0
   ) {
     return {
       userID: process.env["APP_FIREBASE_AUTH_TEST_USER_ID"],
