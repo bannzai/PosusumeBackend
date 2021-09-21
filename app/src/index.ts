@@ -8,6 +8,8 @@ import { Context } from "./types/context";
 
 import admin = require("firebase-admin");
 import express = require("express");
+import { spotResolver } from "./resolvers/query/spot";
+import { meResolver } from "./resolvers/query/me";
 
 admin.initializeApp();
 
@@ -33,37 +35,8 @@ const resolvers: Resolvers = {
       return _context.me as any;
     },
   },
-  Me: {
-    books: (_parent, _args, _context) => {
-      return [{ title: "title" }];
-    },
-  },
-  Book: {
-    authors: (_parent, _args, _context) => {
-      return [{ id: "hogehoge" }];
-    },
-    author: (_parent, _args, _context) => {
-      return { id: "fugafuga" };
-    },
-  },
-  Mutation: {
-    addBook: async (_parent, _args, _context) => {
-      await _context.database
-        .collection(`users/${_context.me!.userID}/books`)
-        .doc()
-        .set(
-          {
-            title: "Give me star",
-            author: { id: "bannzai" },
-          },
-          { merge: true }
-        );
-      return {
-        title: "Give me star",
-        authors: [],
-      };
-    },
-  },
+  Spot: spotResolver,
+  Me: meResolver,
 };
 
 const schemaWithResolvers = addResolversToSchema({ schema, resolvers });
