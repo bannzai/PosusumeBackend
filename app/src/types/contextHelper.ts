@@ -11,7 +11,7 @@ export const setUserIDForMe = async (
     process.env["APP_FIREBASE_AUTH_TEST_USER_ID"].length !== 0
   ) {
     return {
-      userID: process.env["APP_FIREBASE_AUTH_TEST_USER_ID"],
+      id: process.env["APP_FIREBASE_AUTH_TEST_USER_ID"],
     };
   }
 
@@ -33,6 +33,6 @@ export const setUserIDForMe = async (
   const userID = decodedToken.uid;
 
   return {
-    userID: userID,
+    id: userID,
   };
 };
