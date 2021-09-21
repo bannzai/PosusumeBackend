@@ -7,7 +7,7 @@ import { Context } from "./types/context";
 
 import admin = require("firebase-admin");
 import express = require("express");
-import { resolvers } from "./resolvers/query/root";
+import { resolvers } from "./resolvers/root";
 
 admin.initializeApp();
 
