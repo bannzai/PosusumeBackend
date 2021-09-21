@@ -1,6 +1,5 @@
 #!/bin/bash
 set -euo pipefail
-set -x
 
 COMMIT_HASH=$(git rev-parse HEAD)
 DOCKER_IMAGE="$APP_DEVELOPMENT_DOCKER_IMAGE_BASE_PATH:$COMMIT_HASH"
