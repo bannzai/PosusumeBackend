@@ -3,5 +3,5 @@ import admin = require("firebase-admin");
 
 export type Context = {
   me: Me | null;
-  database: admin.firestore;
+  database: FirebaseFirestore.Firestore;
 };

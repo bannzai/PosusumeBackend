@@ -6,6 +6,7 @@ import { join } from "path";
 import admin = require("firebase-admin");
 import { resolvers } from "./resolvers/root";
 import { setUserIDForMe } from "./types/contextHelper";
+import { firestore } from "firebase-admin";
 
 admin.initializeApp();
 
