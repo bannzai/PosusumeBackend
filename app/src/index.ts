@@ -13,10 +13,8 @@ const schema = loadSchemaSync(join(__dirname, "../schemas/schema.graphql"), {
   loaders: [new GraphQLFileLoader()],
 });
 
-const schemaWithResolvers = addResolversToSchema({ schema, resolvers });
-
 const server = new ApolloServer({
-  schema: schemaWithResolvers,
+  schema: addResolversToSchema({ schema, resolvers }),
   introspection: process.env["APP_ENVIRONMENT"] === "DEVELOPMENT",
   context: async (expressContext) => ({
     me: await setUserIDForMe(expressContext.req),
