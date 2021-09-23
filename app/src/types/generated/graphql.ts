@@ -1,3 +1,4 @@
+import { Upload } from '../scalars';
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import { Context } from '../context';
 export type Maybe<T> = T | null;
@@ -13,7 +14,7 @@ export type Scalars = {
   Int: number;
   Float: number;
   Date: any;
-  Upload: any;
+  Upload: Upload;
 };
 
 

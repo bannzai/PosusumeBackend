@@ -6,6 +6,8 @@ generates:
       useIndexSignature: true
       defaultMapper: Partial<{T}>
       contextType: ../context#Context
+      scalars:
+        Upload: ../scalars#Upload
     plugins:
       - typescript
       - typescript-resolvers
