@@ -20,6 +20,7 @@ export const resolvers: Resolvers = {
       const { createReadStream, filename, mimetype, encoding } = await file;
 
       const stream = createReadStream();
+      // TODO: Upload to cloud storage service
       const out = require("fs").createWriteStream("local-file-output.txt");
       stream.pipe(out);
       await finished(out);
