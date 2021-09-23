@@ -1,5 +1,5 @@
-import { spotResolver } from "./query/spot";
-import { meResolver } from "./query/me";
+import { spotResolver } from "../domain/spot/resolver";
+import { meResolver } from "../domain/me/resolver";
 import { Resolvers, User } from "../types/generated/graphql";
 
 export const resolvers: Resolvers = {
