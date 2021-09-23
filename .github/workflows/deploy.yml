@@ -6,12 +6,12 @@ name: Test
 # events but only for the main branch
 on:
   push:
-    branches: [ main, feature/* ]
+    branches: [ main ]
 
 env:
   DOCKER_IMAGE: ${{ secrets.DOCKER_IMAGE_BASE_PATH }}:${{ github.sha }}
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     if: ${{ !contains(github.event.pull_request.title, '[Skip CI]') }}
     steps:
@@ -37,5 +37,6 @@ jobs:
             --port $PORT \
             --project $GCP_PROJECT_ID \
             --region $GCP_REGION \
+            --set-env-vars APP_ENVIRONMENT=DEVELOPMENT
             --allow-unauthenticated \
             --quiet
