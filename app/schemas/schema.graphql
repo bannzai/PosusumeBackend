@@ -1,12 +1,13 @@
 scalar Upload
 scalar Date
+scalar URL
 
 type Query {
   me: Me
 }
 
 type Mutation {
-  singleUpload(file: Upload!): File!
+  spotAdd(input: SpotAddInput!, file: Upload!): SpotAddPayload!
 }
 
 
@@ -33,10 +34,18 @@ type Me implements Node {
   spots: [Spot!]!
 }
 
-type File {
+type UploadedFile {
   filename: String!
   mimetype: String!
   encoding: String!
+  url: URL!
 }
 
+input SpotAddInput {
+  title: String!
+}
 
+type SpotAddPayload {
+  uploadedFile: UploadedFile!
+  spot: Spot!
+}
