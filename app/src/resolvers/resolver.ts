@@ -16,6 +16,7 @@ export const resolvers: Resolvers = {
   Mutation: {
     // Exists naming rules to file upload mutation plugins.
     // e.g) iOS https://github.com/apollographql/apollo-ios/blob/7afcfc3c32950f7f6b6d768212f12412701ec7d6/Sources/UploadAPI/API.swift#L270
+    // See also: https://github.com/jaydenseric/graphql-multipart-request-spec
     singleUpload: async (_parent, { file }, _context) => {
       const { createReadStream, filename, mimetype, encoding } = await file;
 
