@@ -1,3 +1,15 @@
+scalar Upload
+scalar Date
+
+type Query {
+  me: Me
+}
+
+type Mutation {
+  singleUpload(file: Upload!): File!
+}
+
+
 interface Node {
   id: ID!
 }
@@ -21,8 +33,10 @@ type Me implements Node {
   spots: [Spot!]!
 }
 
-type Query {
-  me: Me
+type File {
+  filename: String!
+  mimetype: String!
+  encoding: String!
 }
 
-scalar Date
+

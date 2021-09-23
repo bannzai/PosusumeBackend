@@ -4,6 +4,7 @@ export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -12,13 +13,31 @@ export type Scalars = {
   Int: number;
   Float: number;
   Date: any;
+  Upload: any;
 };
 
+
+export type File = {
+  __typename?: 'File';
+  filename: Scalars['String'];
+  mimetype: Scalars['String'];
+  encoding: Scalars['String'];
+};
 
 export type Me = Node & {
   __typename?: 'Me';
   id: Scalars['ID'];
   spots: Array<Spot>;
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  singleUpload: File;
+};
+
+
+export type MutationSingleUploadArgs = {
+  file: Scalars['Upload'];
 };
 
 export type Node = {
@@ -40,6 +59,7 @@ export type Spot = Node & {
   archivedDate?: Maybe<Scalars['Date']>;
   author: User;
 };
+
 
 export type User = Node & {
   __typename?: 'User';
@@ -117,12 +137,15 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
   Date: ResolverTypeWrapper<Partial<Scalars['Date']>>;
+  File: ResolverTypeWrapper<Partial<File>>;
+  String: ResolverTypeWrapper<Partial<Scalars['String']>>;
   Me: ResolverTypeWrapper<Partial<Me>>;
   ID: ResolverTypeWrapper<Partial<Scalars['ID']>>;
+  Mutation: ResolverTypeWrapper<{}>;
   Node: ResolversTypes['Me'] | ResolversTypes['Spot'] | ResolversTypes['User'];
   Query: ResolverTypeWrapper<{}>;
   Spot: ResolverTypeWrapper<Partial<Spot>>;
-  String: ResolverTypeWrapper<Partial<Scalars['String']>>;
+  Upload: ResolverTypeWrapper<Partial<Scalars['Upload']>>;
   User: ResolverTypeWrapper<Partial<User>>;
   Boolean: ResolverTypeWrapper<Partial<Scalars['Boolean']>>;
 }>;
@@ -130,12 +153,15 @@ export type ResolversTypes = ResolversObject<{
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
   Date: Partial<Scalars['Date']>;
+  File: Partial<File>;
+  String: Partial<Scalars['String']>;
   Me: Partial<Me>;
   ID: Partial<Scalars['ID']>;
+  Mutation: {};
   Node: ResolversParentTypes['Me'] | ResolversParentTypes['Spot'] | ResolversParentTypes['User'];
   Query: {};
   Spot: Partial<Spot>;
-  String: Partial<Scalars['String']>;
+  Upload: Partial<Scalars['Upload']>;
   User: Partial<User>;
   Boolean: Partial<Scalars['Boolean']>;
 }>;
@@ -144,10 +170,21 @@ export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
   name: 'Date';
 }
 
+export type FileResolvers<ContextType = Context, ParentType extends ResolversParentTypes['File'] = ResolversParentTypes['File']> = ResolversObject<{
+  filename?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  mimetype?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  encoding?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type MeResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Me'] = ResolversParentTypes['Me']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   spots?: Resolver<Array<ResolversTypes['Spot']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+  singleUpload?: Resolver<ResolversTypes['File'], ParentType, ContextType, RequireFields<MutationSingleUploadArgs, 'file'>>;
 }>;
 
 export type NodeResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = ResolversObject<{
@@ -170,6 +207,10 @@ export type SpotResolvers<ContextType = Context, ParentType extends ResolversPar
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Upload'], any> {
+  name: 'Upload';
+}
+
 export type UserResolvers<ContextType = Context, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -177,10 +218,13 @@ export type UserResolvers<ContextType = Context, ParentType extends ResolversPar
 
 export type Resolvers<ContextType = Context> = ResolversObject<{
   Date?: GraphQLScalarType;
+  File?: FileResolvers<ContextType>;
   Me?: MeResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
   Node?: NodeResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Spot?: SpotResolvers<ContextType>;
+  Upload?: GraphQLScalarType;
   User?: UserResolvers<ContextType>;
 }>;
 
