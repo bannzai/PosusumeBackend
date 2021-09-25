@@ -18,10 +18,11 @@ interface Node {
 type Spot implements Node {
   id: ID!
   title: String!
-  imageFileName: String
+  imageURL: URL!
   createdDate: Date!
   deletedDate: Date
   archivedDate: Date
+  authorID: ID!
   author: User!
 }
 
