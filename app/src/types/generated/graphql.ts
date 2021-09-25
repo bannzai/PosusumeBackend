@@ -49,10 +49,11 @@ export type Spot = Node & {
   __typename?: 'Spot';
   id: Scalars['ID'];
   title: Scalars['String'];
-  imageFileName?: Maybe<Scalars['String']>;
+  imageURL: Scalars['URL'];
   createdDate: Scalars['Date'];
   deletedDate?: Maybe<Scalars['Date']>;
   archivedDate?: Maybe<Scalars['Date']>;
+  authorID: Scalars['ID'];
   author: User;
 };
 
@@ -213,10 +214,11 @@ export type QueryResolvers<ContextType = Context, ParentType extends ResolversPa
 export type SpotResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Spot'] = ResolversParentTypes['Spot']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  imageFileName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  imageURL?: Resolver<ResolversTypes['URL'], ParentType, ContextType>;
   createdDate?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   deletedDate?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
   archivedDate?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  authorID?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   author?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
