@@ -2,6 +2,7 @@ import { spotResolver } from "../domain/spot/resolver";
 import { meResolver } from "../domain/me/resolver";
 import { Resolvers, Spot } from "../types/generated/graphql";
 import { finished } from "stream/promises";
+import admin = require("firebase-admin");
 
 export const resolvers: Resolvers = {
   Query: {
@@ -15,17 +16,42 @@ export const resolvers: Resolvers = {
     spotAdd: async (_parent, { input, file }, _context) => {
       const { createReadStream, filename, mimetype, encoding } = await file;
 
-      const stream = createReadStream();
-      // TODO: Upload to cloud storage service
-      const out = require("fs").createWriteStream("local-file-output.txt");
-      stream.pipe(out);
-      await finished(out);
+      const documentReference = _context.database.doc(
+        `users/${_context.me.id}/spots`
+      );
+      const id = documentReference.id;
 
-      // TODO
-      const spot = {} as Spot;
+      const storageFile = admin
+        .storage()
+        .bucket()
+        .file(`users/${_context.me.id}/spots/${id}`);
+
+      const readStream = createReadStream();
+      const writeStream = storageFile.createWriteStream({
+        contentType: mimetype,
+      });
+      readStream.pipe(writeStream);
+      await finished(writeStream);
+
+      const spotDocumentData: Omit<Spot, "author"> = {
+        id,
+        imageURL: storageFile.publicUrl(),
+        title: input.title,
+        deletedDate: null,
+        archivedDate: null,
+        createdDate: new Date(),
+        authorID: _context.me.id,
+      };
+      const spot = spotDocumentData as Spot;
+
       return {
         spot,
-        uploadedFile: { filename, mimetype, encoding, url: "" },
+        uploadedFile: {
+          filename,
+          mimetype,
+          encoding,
+          url: storageFile.publicUrl(),
+        },
       };
     },
   },
