@@ -1,7 +1,6 @@
 import { spotResolver } from "../domain/spot/resolver";
 import { meResolver } from "../domain/me/resolver";
 import { Resolvers, Spot } from "../types/generated/graphql";
-import { fileResolver } from "../domain/file/resolver";
 import { finished } from "stream/promises";
 
 export const resolvers: Resolvers = {
@@ -12,7 +11,6 @@ export const resolvers: Resolvers = {
   },
   Spot: spotResolver,
   Me: meResolver,
-  File: fileResolver,
   Mutation: {
     spotAdd: async (_parent, { input, file }, _context) => {
       const { createReadStream, filename, mimetype, encoding } = await file;
