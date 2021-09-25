@@ -44,6 +44,8 @@ export const resolvers: Resolvers = {
       };
       const spot = spotDocumentData as Spot;
 
+      await documentReference.set(spot, { merge: true });
+
       return {
         spot,
         uploadedFile: {
