@@ -1,4 +1,5 @@
 scalar Upload
+scalar GeoPoint
 scalar Date
 scalar URL
 
@@ -9,7 +10,6 @@ type Query {
 type Mutation {
   spotAdd(input: SpotAddInput!, file: Upload!): SpotAddPayload!
 }
-
 
 interface Node {
   id: ID!

@@ -1,3 +1,4 @@
+import { GeoPoint } from '../scalars';
 import { Upload } from '../scalars';
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import { Context } from '../context';
@@ -14,9 +15,11 @@ export type Scalars = {
   Int: number;
   Float: number;
   Date: any;
+  GeoPoint: GeoPoint;
   URL: any;
   Upload: Upload;
 };
+
 
 
 export type Me = Node & {
@@ -153,6 +156,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
   Date: ResolverTypeWrapper<Partial<Scalars['Date']>>;
+  GeoPoint: ResolverTypeWrapper<Partial<Scalars['GeoPoint']>>;
   Me: ResolverTypeWrapper<Partial<Me>>;
   ID: ResolverTypeWrapper<Partial<Scalars['ID']>>;
   Mutation: ResolverTypeWrapper<{}>;
@@ -172,6 +176,7 @@ export type ResolversTypes = ResolversObject<{
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
   Date: Partial<Scalars['Date']>;
+  GeoPoint: Partial<Scalars['GeoPoint']>;
   Me: Partial<Me>;
   ID: Partial<Scalars['ID']>;
   Mutation: {};
@@ -190,6 +195,10 @@ export type ResolversParentTypes = ResolversObject<{
 
 export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
   name: 'Date';
+}
+
+export interface GeoPointScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['GeoPoint'], any> {
+  name: 'GeoPoint';
 }
 
 export type MeResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Me'] = ResolversParentTypes['Me']> = ResolversObject<{
@@ -252,6 +261,7 @@ export type UserResolvers<ContextType = Context, ParentType extends ResolversPar
 
 export type Resolvers<ContextType = Context> = ResolversObject<{
   Date?: GraphQLScalarType;
+  GeoPoint?: GraphQLScalarType;
   Me?: MeResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Node?: NodeResolvers<ContextType>;
