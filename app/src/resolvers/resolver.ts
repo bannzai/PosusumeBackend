@@ -1,7 +1,7 @@
 import { spotResolver } from "../domain/spot/resolver";
 import { meResolver } from "../domain/me/resolver";
 import { Resolvers, Spot } from "../types/generated/graphql";
-import { finished } from "stream/promises";
+import stream = require("stream");
 import admin = require("firebase-admin");
 
 export const resolvers: Resolvers = {
@@ -31,7 +31,7 @@ export const resolvers: Resolvers = {
         contentType: mimetype,
       });
       readStream.pipe(writeStream);
-      await finished(writeStream);
+      await stream.promises.finished(writeStream);
 
       const spotDocumentData: Omit<Spot, "author"> = {
         id,
