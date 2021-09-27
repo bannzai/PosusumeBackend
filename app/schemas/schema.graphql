@@ -39,6 +39,7 @@ type User implements Node {
 
 type Me implements Node {
   id: ID!
+  spots: [Spot!]!
 }
 
 type UploadedFile {

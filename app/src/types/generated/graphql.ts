@@ -32,6 +32,7 @@ export type GeoPoint = {
 export type Me = Node & {
   __typename?: 'Me';
   id: Scalars['ID'];
+  spots: Array<Spot>;
 };
 
 export type Mutation = {
@@ -226,6 +227,7 @@ export interface LongitudeScalarConfig extends GraphQLScalarTypeConfig<Resolvers
 
 export type MeResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Me'] = ResolversParentTypes['Me']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  spots?: Resolver<Array<ResolversTypes['Spot']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
