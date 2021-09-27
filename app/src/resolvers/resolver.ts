@@ -3,7 +3,7 @@ import { meResolver } from "../domain/me/resolver";
 import { Resolvers, Spot } from "../types/generated/graphql";
 import stream = require("stream");
 import admin = require("firebase-admin");
-import { resolvers as scalarResolvers } from "graphql-scalars";
+import { GraphQLLatitude, GraphQLLongitude } from "graphql-scalars";
 
 export const resolvers: Resolvers = {
   Query: {
@@ -62,6 +62,6 @@ export const resolvers: Resolvers = {
       };
     },
   },
-  Latitude: scalarResolvers.Latitude,
-  Longitude: scalarResolvers.Longitude,
+  Latitude: GraphQLLatitude,
+  Longitude: GraphQLLongitude,
 };
