@@ -8,6 +8,8 @@ generates:
       contextType: ../context#Context
       scalars:
         Upload: ../scalars#Upload
+        Latitude: number
+        Longitude: number
     plugins:
       - typescript
       - typescript-resolvers
