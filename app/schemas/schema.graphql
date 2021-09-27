@@ -39,7 +39,6 @@ type User implements Node {
 
 type Me implements Node {
   id: ID!
-  spots: [Spot!]!
 }
 
 type UploadedFile {
@@ -51,7 +50,8 @@ type UploadedFile {
 
 input SpotAddInput {
   title: String!
-  geoPoint: GeoPoint!
+  latitude: Latitude!
+  longitude: Longitude!
 }
 
 type SpotAddPayload {
