@@ -1,7 +1,8 @@
 scalar Upload
-scalar GeoPoint
 scalar Date
 scalar URL
+scalar Latitude
+scalar Longitude
 
 type Query {
   me: Me
@@ -24,6 +25,12 @@ type Spot implements Node {
   archivedDate: Date
   authorID: ID!
   author: User!
+  geoPoint: GeoPoint!
+}
+
+type GeoPoint {
+  latitude: Latitude!
+  longitude: Longitude!
 }
 
 type User implements Node {
