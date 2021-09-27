@@ -51,6 +51,7 @@ type UploadedFile {
 
 input SpotAddInput {
   title: String!
+  geoPoint: GeoPoint!
 }
 
 type SpotAddPayload {

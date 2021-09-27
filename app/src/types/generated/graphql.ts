@@ -70,6 +70,7 @@ export type Spot = Node & {
 
 export type SpotAddInput = {
   title: Scalars['String'];
+  geoPoint: GeoPoint;
 };
 
 export type SpotAddPayload = {
