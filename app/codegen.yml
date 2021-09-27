@@ -8,7 +8,6 @@ generates:
       contextType: ../context#Context
       scalars:
         Upload: ../scalars#Upload
-        GeoPoint: ../scalars#GeoPoint
     plugins:
       - typescript
       - typescript-resolvers
