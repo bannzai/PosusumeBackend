@@ -7,5 +7,3 @@ import { FileUpload } from "graphql-upload";
 // See also: https://github.com/jaydenseric/graphql-multipart-request-spec
 
 export type Upload = Promise<FileUpload>;
-
-export type GeoPoint = FirebaseFirestore.GeoPoint;
