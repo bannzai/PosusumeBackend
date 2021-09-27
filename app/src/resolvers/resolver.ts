@@ -43,8 +43,8 @@ export const resolvers: Resolvers = {
         createdDate: new Date(),
         authorID: _context.me.id,
         geoPoint: new FirebaseFirestore.GeoPoint(
-          input.geoPoint.latitude,
-          input.geoPoint.longitude
+          input.latitude,
+          input.longitude
         ),
       };
       const spot = spotDocumentData as Spot;
