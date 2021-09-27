@@ -1,4 +1,3 @@
-import { GeoPoint } from '../scalars';
 import { Upload } from '../scalars';
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import { Context } from '../context';
@@ -15,9 +14,17 @@ export type Scalars = {
   Int: number;
   Float: number;
   Date: any;
-  GeoPoint: GeoPoint;
+  Latitude: any;
+  Longitude: any;
   URL: any;
   Upload: Upload;
+};
+
+
+export type GeoPoint = {
+  __typename?: 'GeoPoint';
+  latitude: Scalars['Latitude'];
+  longitude: Scalars['Longitude'];
 };
 
 
@@ -58,6 +65,7 @@ export type Spot = Node & {
   archivedDate?: Maybe<Scalars['Date']>;
   authorID: Scalars['ID'];
   author: User;
+  geoPoint: GeoPoint;
 };
 
 export type SpotAddInput = {
@@ -156,7 +164,9 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
   Date: ResolverTypeWrapper<Partial<Scalars['Date']>>;
-  GeoPoint: ResolverTypeWrapper<Partial<Scalars['GeoPoint']>>;
+  GeoPoint: ResolverTypeWrapper<Partial<GeoPoint>>;
+  Latitude: ResolverTypeWrapper<Partial<Scalars['Latitude']>>;
+  Longitude: ResolverTypeWrapper<Partial<Scalars['Longitude']>>;
   Me: ResolverTypeWrapper<Partial<Me>>;
   ID: ResolverTypeWrapper<Partial<Scalars['ID']>>;
   Mutation: ResolverTypeWrapper<{}>;
@@ -176,7 +186,9 @@ export type ResolversTypes = ResolversObject<{
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
   Date: Partial<Scalars['Date']>;
-  GeoPoint: Partial<Scalars['GeoPoint']>;
+  GeoPoint: Partial<GeoPoint>;
+  Latitude: Partial<Scalars['Latitude']>;
+  Longitude: Partial<Scalars['Longitude']>;
   Me: Partial<Me>;
   ID: Partial<Scalars['ID']>;
   Mutation: {};
@@ -197,8 +209,18 @@ export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
   name: 'Date';
 }
 
-export interface GeoPointScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['GeoPoint'], any> {
-  name: 'GeoPoint';
+export type GeoPointResolvers<ContextType = Context, ParentType extends ResolversParentTypes['GeoPoint'] = ResolversParentTypes['GeoPoint']> = ResolversObject<{
+  latitude?: Resolver<ResolversTypes['Latitude'], ParentType, ContextType>;
+  longitude?: Resolver<ResolversTypes['Longitude'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export interface LatitudeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Latitude'], any> {
+  name: 'Latitude';
+}
+
+export interface LongitudeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Longitude'], any> {
+  name: 'Longitude';
 }
 
 export type MeResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Me'] = ResolversParentTypes['Me']> = ResolversObject<{
@@ -229,6 +251,7 @@ export type SpotResolvers<ContextType = Context, ParentType extends ResolversPar
   archivedDate?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
   authorID?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   author?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  geoPoint?: Resolver<ResolversTypes['GeoPoint'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -261,7 +284,9 @@ export type UserResolvers<ContextType = Context, ParentType extends ResolversPar
 
 export type Resolvers<ContextType = Context> = ResolversObject<{
   Date?: GraphQLScalarType;
-  GeoPoint?: GraphQLScalarType;
+  GeoPoint?: GeoPointResolvers<ContextType>;
+  Latitude?: GraphQLScalarType;
+  Longitude?: GraphQLScalarType;
   Me?: MeResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Node?: NodeResolvers<ContextType>;
