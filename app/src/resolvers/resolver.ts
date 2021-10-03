@@ -14,29 +14,15 @@ export const resolvers: Resolvers = {
   Spot: spotResolver,
   Me: meResolver,
   Mutation: {
-    spotAdd: async (_parent, { input, file }, _context) => {
-      const { createReadStream, filename, mimetype, encoding } = await file;
-
+    spotAdd: async (_parent, { input }, _context) => {
       const documentReference = _context.database.doc(
         `users/${_context.me.id}/spots`
       );
       const id = documentReference.id;
 
-      const storageFile = admin
-        .storage()
-        .bucket()
-        .file(`users/${_context.me.id}/spots/${id}`);
-
-      const readStream = createReadStream();
-      const writeStream = storageFile.createWriteStream({
-        contentType: mimetype,
-      });
-      readStream.pipe(writeStream);
-      await stream.promises.finished(writeStream);
-
       const spotDocumentData: Omit<Spot, "author"> = {
         id,
-        imageURL: storageFile.publicUrl(),
+        imageURL: input.imageURL,
         title: input.title,
         deletedDate: null,
         archivedDate: null,
@@ -53,12 +39,6 @@ export const resolvers: Resolvers = {
 
       return {
         spot,
-        uploadedFile: {
-          filename,
-          mimetype,
-          encoding,
-          url: storageFile.publicUrl(),
-        },
       };
     },
   },

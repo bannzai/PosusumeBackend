@@ -67,6 +67,7 @@ export type Spot = Node & {
 
 export type SpotAddInput = {
   title: Scalars['String'];
+  imageURL: Scalars['URL'];
   latitude: Scalars['Latitude'];
   longitude: Scalars['Longitude'];
 };
