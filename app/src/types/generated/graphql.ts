@@ -66,6 +66,7 @@ export type Spot = Node & {
 };
 
 export type SpotAddInput = {
+  id?: Maybe<Scalars['ID']>;
   title: Scalars['String'];
   imageURL: Scalars['URL'];
   latitude: Scalars['Latitude'];
