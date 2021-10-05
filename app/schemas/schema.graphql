@@ -42,6 +42,8 @@ type Me implements Node {
 }
 
 input SpotAddInput {
+  # If no id is specified, it will be assigned automatically.
+  id: ID
   title: String!
   imageURL: URL!
   latitude: Latitude!
