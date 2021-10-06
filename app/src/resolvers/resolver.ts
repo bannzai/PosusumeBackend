@@ -15,13 +15,19 @@ export const resolvers: Resolvers = {
   Me: meResolver,
   Mutation: {
     spotAdd: async (_parent, { input }, _context) => {
-      const documentReference = _context.database.doc(
+      const collectionReference = _context.database.collection(
         `users/${_context.me.id}/spots`
       );
-      const id = documentReference.id;
+
+      let documentReference: FirebaseFirestore.DocumentReference;
+      if (input.id == null) {
+        documentReference = collectionReference.doc();
+      } else {
+        documentReference = collectionReference.doc(input.id);
+      }
 
       const spotDocumentData: Omit<Spot, "author"> = {
-        id,
+        id: documentReference.id,
         imageURL: input.imageURL,
         title: input.title,
         deletedDate: null,
