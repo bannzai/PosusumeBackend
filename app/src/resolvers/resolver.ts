@@ -1,7 +1,6 @@
 import { spotResolver } from "../domain/spot/resolver";
 import { meResolver } from "../domain/me/resolver";
 import { Resolvers, Spot } from "../types/generated/graphql";
-import stream = require("stream");
 import admin = require("firebase-admin");
 import { GraphQLLatitude, GraphQLLongitude } from "graphql-scalars";
 
@@ -19,7 +18,7 @@ export const resolvers: Resolvers = {
         `users/${_context.me.id}/spots`
       );
 
-      let documentReference: FirebaseFirestore.DocumentReference;
+      let documentReference: admin.firestore.DocumentReference;
       if (input.id == null) {
         documentReference = collectionReference.doc();
       } else {
@@ -34,10 +33,7 @@ export const resolvers: Resolvers = {
         archivedDate: null,
         createdDate: new Date(),
         authorID: _context.me.id,
-        geoPoint: new FirebaseFirestore.GeoPoint(
-          input.latitude,
-          input.longitude
-        ),
+        geoPoint: new admin.firestore.GeoPoint(input.latitude, input.longitude),
       };
       const spot = spotDocumentData as Spot;
 
