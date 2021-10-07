@@ -9,6 +9,23 @@ export const resolvers: Resolvers = {
     me: (_parent, _args, _context, _info) => {
       return _context.me as any;
     },
+    spots: async (_parent, _args, _context, _info) => {
+      const spotCollectionGroup = await _context.database
+        .collectionGroup(`spots`)
+        .where(
+          "geoPoint",
+          ">=",
+          new admin.firestore.GeoPoint(_args.minLatitude, _args.minLongitude)
+        )
+        .where(
+          "geoPoint",
+          "<=",
+          new admin.firestore.GeoPoint(_args.maxLatitude, _args.maxLongitude)
+        )
+        .limit(_args.limit)
+        .get();
+      return spotCollectionGroup.docs.map((doc) => doc.data() as Spot);
+    },
   },
   Spot: spotResolver,
   Me: meResolver,
