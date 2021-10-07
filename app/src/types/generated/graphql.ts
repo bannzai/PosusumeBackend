@@ -4,6 +4,7 @@ export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -12,13 +13,34 @@ export type Scalars = {
   Int: number;
   Float: number;
   Date: any;
+  Latitude: number;
+  Longitude: number;
+  URL: any;
 };
+
+
+export type GeoPoint = {
+  __typename?: 'GeoPoint';
+  latitude: Scalars['Latitude'];
+  longitude: Scalars['Longitude'];
+};
+
 
 
 export type Me = Node & {
   __typename?: 'Me';
   id: Scalars['ID'];
   spots: Array<Spot>;
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  spotAdd: SpotAddPayload;
+};
+
+
+export type MutationSpotAddArgs = {
+  input: SpotAddInput;
 };
 
 export type Node = {
@@ -34,12 +56,28 @@ export type Spot = Node & {
   __typename?: 'Spot';
   id: Scalars['ID'];
   title: Scalars['String'];
-  imageFileName?: Maybe<Scalars['String']>;
+  imageURL: Scalars['URL'];
   createdDate: Scalars['Date'];
   deletedDate?: Maybe<Scalars['Date']>;
   archivedDate?: Maybe<Scalars['Date']>;
+  authorID: Scalars['ID'];
   author: User;
+  geoPoint: GeoPoint;
 };
+
+export type SpotAddInput = {
+  id?: Maybe<Scalars['ID']>;
+  title: Scalars['String'];
+  imageURL: Scalars['URL'];
+  latitude: Scalars['Latitude'];
+  longitude: Scalars['Longitude'];
+};
+
+export type SpotAddPayload = {
+  __typename?: 'SpotAddPayload';
+  spot: Spot;
+};
+
 
 export type User = Node & {
   __typename?: 'User';
@@ -117,12 +155,19 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
   Date: ResolverTypeWrapper<Partial<Scalars['Date']>>;
+  GeoPoint: ResolverTypeWrapper<Partial<GeoPoint>>;
+  Latitude: ResolverTypeWrapper<Partial<Scalars['Latitude']>>;
+  Longitude: ResolverTypeWrapper<Partial<Scalars['Longitude']>>;
   Me: ResolverTypeWrapper<Partial<Me>>;
   ID: ResolverTypeWrapper<Partial<Scalars['ID']>>;
+  Mutation: ResolverTypeWrapper<{}>;
   Node: ResolversTypes['Me'] | ResolversTypes['Spot'] | ResolversTypes['User'];
   Query: ResolverTypeWrapper<{}>;
   Spot: ResolverTypeWrapper<Partial<Spot>>;
   String: ResolverTypeWrapper<Partial<Scalars['String']>>;
+  SpotAddInput: ResolverTypeWrapper<Partial<SpotAddInput>>;
+  SpotAddPayload: ResolverTypeWrapper<Partial<SpotAddPayload>>;
+  URL: ResolverTypeWrapper<Partial<Scalars['URL']>>;
   User: ResolverTypeWrapper<Partial<User>>;
   Boolean: ResolverTypeWrapper<Partial<Scalars['Boolean']>>;
 }>;
@@ -130,12 +175,19 @@ export type ResolversTypes = ResolversObject<{
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
   Date: Partial<Scalars['Date']>;
+  GeoPoint: Partial<GeoPoint>;
+  Latitude: Partial<Scalars['Latitude']>;
+  Longitude: Partial<Scalars['Longitude']>;
   Me: Partial<Me>;
   ID: Partial<Scalars['ID']>;
+  Mutation: {};
   Node: ResolversParentTypes['Me'] | ResolversParentTypes['Spot'] | ResolversParentTypes['User'];
   Query: {};
   Spot: Partial<Spot>;
   String: Partial<Scalars['String']>;
+  SpotAddInput: Partial<SpotAddInput>;
+  SpotAddPayload: Partial<SpotAddPayload>;
+  URL: Partial<Scalars['URL']>;
   User: Partial<User>;
   Boolean: Partial<Scalars['Boolean']>;
 }>;
@@ -144,10 +196,28 @@ export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
   name: 'Date';
 }
 
+export type GeoPointResolvers<ContextType = Context, ParentType extends ResolversParentTypes['GeoPoint'] = ResolversParentTypes['GeoPoint']> = ResolversObject<{
+  latitude?: Resolver<ResolversTypes['Latitude'], ParentType, ContextType>;
+  longitude?: Resolver<ResolversTypes['Longitude'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export interface LatitudeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Latitude'], any> {
+  name: 'Latitude';
+}
+
+export interface LongitudeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Longitude'], any> {
+  name: 'Longitude';
+}
+
 export type MeResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Me'] = ResolversParentTypes['Me']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   spots?: Resolver<Array<ResolversTypes['Spot']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+  spotAdd?: Resolver<ResolversTypes['SpotAddPayload'], ParentType, ContextType, RequireFields<MutationSpotAddArgs, 'input'>>;
 }>;
 
 export type NodeResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = ResolversObject<{
@@ -162,13 +232,24 @@ export type QueryResolvers<ContextType = Context, ParentType extends ResolversPa
 export type SpotResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Spot'] = ResolversParentTypes['Spot']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  imageFileName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  imageURL?: Resolver<ResolversTypes['URL'], ParentType, ContextType>;
   createdDate?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   deletedDate?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
   archivedDate?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  authorID?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   author?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  geoPoint?: Resolver<ResolversTypes['GeoPoint'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
+
+export type SpotAddPayloadResolvers<ContextType = Context, ParentType extends ResolversParentTypes['SpotAddPayload'] = ResolversParentTypes['SpotAddPayload']> = ResolversObject<{
+  spot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export interface UrlScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['URL'], any> {
+  name: 'URL';
+}
 
 export type UserResolvers<ContextType = Context, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -177,10 +258,16 @@ export type UserResolvers<ContextType = Context, ParentType extends ResolversPar
 
 export type Resolvers<ContextType = Context> = ResolversObject<{
   Date?: GraphQLScalarType;
+  GeoPoint?: GeoPointResolvers<ContextType>;
+  Latitude?: GraphQLScalarType;
+  Longitude?: GraphQLScalarType;
   Me?: MeResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
   Node?: NodeResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Spot?: SpotResolvers<ContextType>;
+  SpotAddPayload?: SpotAddPayloadResolvers<ContextType>;
+  URL?: GraphQLScalarType;
   User?: UserResolvers<ContextType>;
 }>;
 

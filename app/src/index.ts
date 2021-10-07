@@ -4,7 +4,7 @@ import { GraphQLFileLoader } from "@graphql-tools/graphql-file-loader";
 import { addResolversToSchema } from "@graphql-tools/schema";
 import { join } from "path";
 import admin = require("firebase-admin");
-import { resolvers } from "./resolvers/root";
+import { resolvers } from "./resolvers/resolver";
 import { setUserIDForMe } from "./types/contextHelper";
 
 admin.initializeApp();
@@ -13,10 +13,8 @@ const schema = loadSchemaSync(join(__dirname, "../schemas/schema.graphql"), {
   loaders: [new GraphQLFileLoader()],
 });
 
-const schemaWithResolvers = addResolversToSchema({ schema, resolvers });
-
 const server = new ApolloServer({
-  schema: schemaWithResolvers,
+  schema: addResolversToSchema({ schema, resolvers }),
   introspection: process.env["APP_ENVIRONMENT"] === "DEVELOPMENT",
   context: async (expressContext) => ({
     me: await setUserIDForMe(expressContext.req),

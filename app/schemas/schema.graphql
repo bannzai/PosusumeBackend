@@ -1,3 +1,16 @@
+scalar Date
+scalar URL
+scalar Latitude
+scalar Longitude
+
+type Query {
+  me: Me
+}
+
+type Mutation {
+  spotAdd(input: SpotAddInput!): SpotAddPayload!
+}
+
 interface Node {
   id: ID!
 }
@@ -5,11 +18,18 @@ interface Node {
 type Spot implements Node {
   id: ID!
   title: String!
-  imageFileName: String
+  imageURL: URL!
   createdDate: Date!
   deletedDate: Date
   archivedDate: Date
+  authorID: ID!
   author: User!
+  geoPoint: GeoPoint!
+}
+
+type GeoPoint {
+  latitude: Latitude!
+  longitude: Longitude!
 }
 
 type User implements Node {
@@ -21,8 +41,15 @@ type Me implements Node {
   spots: [Spot!]!
 }
 
-type Query {
-  me: Me
+input SpotAddInput {
+  # If no id is specified, it will be assigned automatically.
+  id: ID
+  title: String!
+  imageURL: URL!
+  latitude: Latitude!
+  longitude: Longitude!
 }
 
-scalar Date
+type SpotAddPayload {
+  spot: Spot!
+}
