@@ -5,6 +5,7 @@ scalar Longitude
 
 type Query {
   me: Me
+  spots(latitude: Latitude!, longitude: Longitude!): [Spot!]!
 }
 
 type Mutation {
