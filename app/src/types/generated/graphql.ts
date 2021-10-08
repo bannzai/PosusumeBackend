@@ -50,6 +50,16 @@ export type Node = {
 export type Query = {
   __typename?: 'Query';
   me?: Maybe<Me>;
+  spots: Array<Spot>;
+};
+
+
+export type QuerySpotsArgs = {
+  minLatitude: Scalars['Latitude'];
+  minLongitude: Scalars['Longitude'];
+  maxLatitude: Scalars['Latitude'];
+  maxLongitude: Scalars['Longitude'];
+  limit?: Scalars['Int'];
 };
 
 export type Spot = Node & {
@@ -163,6 +173,7 @@ export type ResolversTypes = ResolversObject<{
   Mutation: ResolverTypeWrapper<{}>;
   Node: ResolversTypes['Me'] | ResolversTypes['Spot'] | ResolversTypes['User'];
   Query: ResolverTypeWrapper<{}>;
+  Int: ResolverTypeWrapper<Partial<Scalars['Int']>>;
   Spot: ResolverTypeWrapper<Partial<Spot>>;
   String: ResolverTypeWrapper<Partial<Scalars['String']>>;
   SpotAddInput: ResolverTypeWrapper<Partial<SpotAddInput>>;
@@ -183,6 +194,7 @@ export type ResolversParentTypes = ResolversObject<{
   Mutation: {};
   Node: ResolversParentTypes['Me'] | ResolversParentTypes['Spot'] | ResolversParentTypes['User'];
   Query: {};
+  Int: Partial<Scalars['Int']>;
   Spot: Partial<Spot>;
   String: Partial<Scalars['String']>;
   SpotAddInput: Partial<SpotAddInput>;
@@ -227,6 +239,7 @@ export type NodeResolvers<ContextType = Context, ParentType extends ResolversPar
 
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   me?: Resolver<Maybe<ResolversTypes['Me']>, ParentType, ContextType>;
+  spots?: Resolver<Array<ResolversTypes['Spot']>, ParentType, ContextType, RequireFields<QuerySpotsArgs, 'minLatitude' | 'minLongitude' | 'maxLatitude' | 'maxLongitude' | 'limit'>>;
 }>;
 
 export type SpotResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Spot'] = ResolversParentTypes['Spot']> = ResolversObject<{
