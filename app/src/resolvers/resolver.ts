@@ -22,7 +22,6 @@ export const resolvers: Resolvers = {
           "<=",
           new admin.firestore.GeoPoint(_args.maxLatitude, _args.maxLongitude)
         )
-        .limit(_args.limit)
         .get();
       return spotCollectionGroup.docs.map((doc) => doc.data() as Spot);
     },
