@@ -1,4 +1,4 @@
 import admin = require("firebase-admin");
 admin.initializeApp();
 
-exports.writeSpotImageURLOnResized = require("./functions/writeSpotImageURLOnResized/function");
+exports.writeSpotImageURLOnResized = require("./writeSpotImageURLOnResized/function");
