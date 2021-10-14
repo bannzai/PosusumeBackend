@@ -40,6 +40,7 @@ All of these properties are optional because they are determined asynchronously.
 Also, the newly added ResizedImageURL type will be null.
 """
 type ResizedSpotImageURLs {
+  # 120x160. For example, it is used on the Map
   thumbnail: URL
 }
 
