@@ -6,21 +6,24 @@ export const database = admin.firestore();
 module.exports = functions.storage
   .object()
   .onFinalize(async (object, context) => {
-    if (
-      object.metadata == null ||
-      object.metadata["firebaseStorageDownloadTokens"] != null
-    ) {
-      functions.logger.log(
-        "it is skip pattern for object.metadata is null or firebaseStorageDownloadTokens is not found"
-      );
-      return;
-    }
     if (object.name == null) {
       functions.logger.log("it is skip pattern for object.name is null");
       return;
     }
     const filepath = object.name;
     functions.logger.log(JSON.stringify({ filepath }));
+
+    const bucket = admin.storage().bucket(object.name);
+    const metadata = bucket.metadata;
+    if (metadata == null || metadata["firebaseStorageDownloadTokens"] != null) {
+      functions.logger.log(
+        `it is skip pattern for object.metadata is null or firebaseStorageDownloadTokens is not found. ${JSON.stringify(
+          { metadata }
+        )} `
+      );
+      return;
+    }
+    functions.logger.log(JSON.stringify({ metadata }));
 
     const matches = filepath.match(/users\/(.+)\/spots\/(.+)\/resized\/(.+)/);
     if (matches == null) {
@@ -44,7 +47,7 @@ module.exports = functions.storage
     const spotID = matches[2];
     const resizedImageID = matches[3];
     const resizedImageSize: ResizedImageSizeSuffix = "120x160";
-    const token = object.metadata["firebaseStorageDownloadTokens"];
+    const token = bucket.metadata["firebaseStorageDownloadTokens"];
     const resizedImageURLs: string[] = [
       buildStorageURL({
         userID,
