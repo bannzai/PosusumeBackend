@@ -55,14 +55,12 @@ module.exports = functions.storage
     const userID = matches[1];
     const spotID = matches[2];
     const resizedImageID = matches[3];
-    const resizedImageSize: ResizedImageSizeSuffix = "120x160";
     const token = firebaseStorageDownloadTokens;
     const resizedImageURLs: string[] = [
       buildStorageURL({
         userID,
         spotID,
         resizedImageID,
-        resizedImageSize,
         token,
       }),
     ];
@@ -74,15 +72,12 @@ module.exports = functions.storage
     );
   });
 
-type ResizedImageSizeSuffix = "120x160";
-
 function buildStorageURL(args: {
   userID: string;
   spotID: string;
   resizedImageID: string;
-  resizedImageSize: ResizedImageSizeSuffix;
   token: string;
 }): string {
-  const { userID, spotID, resizedImageID, resizedImageSize, token } = args;
-  return `https://firebasestorage.googleapis.com/v0/b/${process.env.GCLOUD_PROJECT}.appspot.com/o/users/${userID}/spots/${spotID}/resized/${resizedImageID}_${resizedImageSize}?alt=media&token=${token}`;
+  const { userID, spotID, resizedImageID, token } = args;
+  return `https://firebasestorage.googleapis.com/v0/b/${process.env.GCLOUD_PROJECT}.appspot.com/o/users/${userID}/spots/${spotID}/resized/${resizedImageID}?alt=media&token=${token}`;
 }
