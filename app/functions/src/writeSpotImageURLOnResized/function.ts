@@ -15,7 +15,7 @@ module.exports = functions.storage
 
     const metadata = object.metadata;
     functions.logger.log(JSON.stringify({ metadata }));
-    if (metadata == null || metadata["firebaseStorageDownloadTokens"] != null) {
+    if (metadata == null || metadata["firebaseStorageDownloadTokens"] == null) {
       functions.logger.log(
         `it is skip pattern for metadata is null or firebaseStorageDownloadTokens is not found ${JSON.stringify(
           { metadata }
