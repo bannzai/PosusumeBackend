@@ -34,6 +34,11 @@ type Spot implements Node {
   resizedSpotImageURLs: ResizedSpotImageURLs!
 }
 
+"""
+ResizedSpotImageURLs container of resized image URLs on Cloud Functions
+All of these properties are optional because they are determined asynchronously.
+Also, the newly added ResizedImageURL type will be null.
+"""
 type ResizedSpotImageURLs {
   thumbnail: URL
 }
