@@ -87,11 +87,14 @@ module.exports = functions.storage
       functions.logger.log("unexpected spot is null");
       return;
     }
+    functions.logger.log(JSON.stringify({ spot }));
 
     const { resizedSpotImageURLs } = spot;
+    functions.logger.log(`before ${JSON.stringify({ resizedSpotImageURLs })}`);
     if (resizedImageURL.includes(`_${thumbnailSuffix}/`)) {
       resizedSpotImageURLs.thumbnail = resizedImageURL;
     }
+    functions.logger.log(`after ${JSON.stringify({ resizedSpotImageURLs })}`);
     await spotDocumentReference.set(
       {
         resizedSpotImageURLs,
