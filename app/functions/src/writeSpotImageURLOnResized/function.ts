@@ -13,19 +13,16 @@ module.exports = functions.storage
     const filepath = object.name;
     functions.logger.log(JSON.stringify({ filepath }));
 
-    const bucket = admin.storage().bucket(object.name);
-    if (
-      bucket.metadata == null ||
-      bucket.metadata["firebaseStorageDownloadTokens"] != null
-    ) {
+    const metadata = object.metadata;
+    functions.logger.log(JSON.stringify({ metadata }));
+    if (metadata == null || metadata["firebaseStorageDownloadTokens"] != null) {
       functions.logger.log(
-        `it is skip pattern for bucket.metadata is null or firebaseStorageDownloadTokens is not found ${JSON.stringify(
-          { metadata: bucket.metadata }
+        `it is skip pattern for metadata is null or firebaseStorageDownloadTokens is not found ${JSON.stringify(
+          { metadata }
         )}`
       );
       return;
     }
-    functions.logger.log(JSON.stringify({ bucket }));
 
     const matches = filepath.match(/users\/(.+)\/spots\/(.+)\/resized\/(.+)/);
     if (matches == null) {
@@ -44,6 +41,9 @@ module.exports = functions.storage
       );
       return;
     }
+
+    const bucket = admin.storage().bucket(object.name);
+    functions.logger.log(JSON.stringify({ bucket }));
 
     const userID = matches[1];
     const spotID = matches[2];
