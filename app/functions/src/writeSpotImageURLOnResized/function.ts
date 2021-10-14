@@ -79,5 +79,5 @@ function buildStorageURL(args: {
   token: string;
 }): string {
   const { userID, spotID, resizedImageID, token } = args;
-  return `https://firebasestorage.googleapis.com/v0/b/${process.env.GCLOUD_PROJECT}.appspot.com/o/users/${userID}/spots/${spotID}/resized/${resizedImageID}?alt=media&token=${token}`;
+  return `https://firebasestorage.googleapis.com/v0/b/${process.env.GCLOUD_PROJECT}.appspot.com/o/users%2F${userID}%2Fspots%2F${spotID}%2Fresized%2F${resizedImageID}?alt=media&token=${token}`;
 }
