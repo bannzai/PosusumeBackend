@@ -50,7 +50,7 @@ export const resolvers: Resolvers = {
         createdDate: new Date(),
         authorID: _context.me.id,
         geoPoint: new admin.firestore.GeoPoint(input.latitude, input.longitude),
-        resizedSpotImageURLs: [],
+        resizedSpotImageURLs: {},
       };
       const spot = spotDocumentData as Spot;
 
