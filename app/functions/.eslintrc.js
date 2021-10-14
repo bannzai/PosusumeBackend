@@ -26,6 +26,7 @@ module.exports = {
     "indent": "off",
     "object-curly-spacing": "off",
     "max-len": "off",
+    "require-jsdoc": "off",
     "import/no-unresolved": 0,
   },
 };
