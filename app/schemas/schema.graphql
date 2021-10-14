@@ -31,11 +31,7 @@ type Spot implements Node {
   authorID: ID!
   author: User!
   geoPoint: GeoPoint!
-  spotImageURLs: SpotImageURLs
-}
-
-type SpotImageURLs {
-  thumbnail: URL
+  resizedSpotImageURLs: [URL!]!
 }
 
 type GeoPoint {
