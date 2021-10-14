@@ -15,9 +15,16 @@ module.exports = functions.storage
 
     const metadata = object.metadata;
     functions.logger.log(JSON.stringify({ metadata }));
-    if (metadata == null || metadata["firebaseStorageDownloadTokens"] == null) {
+    if (metadata == null) {
+      functions.logger.log(`it is skip pattern for metadata is null`);
+      return;
+    }
+
+    const firebaseStorageDownloadTokens =
+      metadata["firebaseStorageDownloadTokens"];
+    if (firebaseStorageDownloadTokens == null) {
       functions.logger.log(
-        `it is skip pattern for metadata is null or firebaseStorageDownloadTokens is not found ${JSON.stringify(
+        `it is skip pattern for firebaseStorageDownloadTokens is not found ${JSON.stringify(
           { metadata }
         )}`
       );
@@ -49,7 +56,7 @@ module.exports = functions.storage
     const spotID = matches[2];
     const resizedImageID = matches[3];
     const resizedImageSize: ResizedImageSizeSuffix = "120x160";
-    const token = bucket.metadata["firebaseStorageDownloadTokens"];
+    const token = firebaseStorageDownloadTokens;
     const resizedImageURLs: string[] = [
       buildStorageURL({
         userID,
