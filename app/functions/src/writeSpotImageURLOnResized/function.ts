@@ -25,6 +25,7 @@ module.exports = functions.storage
       );
       return;
     }
+    functions.logger.log(JSON.stringify({ bucket }));
 
     const matches = filepath.match(/users\/(.+)\/spots\/(.+)\/resized\/(.+)/);
     if (matches == null) {
