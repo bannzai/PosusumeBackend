@@ -77,7 +77,7 @@ export type Spot = Node & {
   authorID: Scalars['ID'];
   author: User;
   geoPoint: GeoPoint;
-  resizedSpotImageURLs?: Maybe<ResizedSpotImageUrLs>;
+  resizedSpotImageURLs: ResizedSpotImageUrLs;
 };
 
 export type SpotAddInput = {
@@ -262,7 +262,7 @@ export type SpotResolvers<ContextType = Context, ParentType extends ResolversPar
   authorID?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   author?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   geoPoint?: Resolver<ResolversTypes['GeoPoint'], ParentType, ContextType>;
-  resizedSpotImageURLs?: Resolver<Maybe<ResolversTypes['ResizedSpotImageURLs']>, ParentType, ContextType>;
+  resizedSpotImageURLs?: Resolver<ResolversTypes['ResizedSpotImageURLs'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
