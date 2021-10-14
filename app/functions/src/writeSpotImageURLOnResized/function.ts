@@ -1,5 +1,6 @@
 import * as functions from "firebase-functions";
 import admin = require("firebase-admin");
+import { Spot } from "../../../src/types/generated/graphql";
 
 export const database = admin.firestore();
 
@@ -56,21 +57,50 @@ module.exports = functions.storage
     const spotID = matches[2];
     const resizedImageID = matches[3];
     const token = firebaseStorageDownloadTokens;
-    const resizedImageURLs: string[] = [
-      buildStorageURL({
+    functions.logger.log(
+      JSON.stringify({
         userID,
         spotID,
         resizedImageID,
         token,
-      }),
-    ];
-    await database.doc(`users/${userID}/spots/${spotID}`).set(
+      })
+    );
+
+    const resizedImageURL: string = buildStorageURL({
+      userID,
+      spotID,
+      resizedImageID,
+      token,
+    });
+    functions.logger.log(
+      JSON.stringify({
+        resizedImageURL,
+      })
+    );
+
+    const spotDocumentReference = database.doc(
+      `users/${userID}/spots/${spotID}`
+    );
+    const spotDocument = await spotDocumentReference.get();
+    const spot = spotDocument.data() as Spot | undefined;
+    if (spot == null) {
+      functions.logger.log("unexpected spot is null");
+      return;
+    }
+
+    const { resizedSpotImageURLs } = spot;
+    if (resizedImageURL.includes(`_${thumbnailSuffix}/`)) {
+      resizedSpotImageURLs.thumbnail = resizedImageURL;
+    }
+    await spotDocumentReference.set(
       {
-        resizedImageURLs,
+        resizedSpotImageURLs,
       },
       { merge: true }
     );
   });
+
+const thumbnailSuffix = "120x160";
 
 function buildStorageURL(args: {
   userID: string;
