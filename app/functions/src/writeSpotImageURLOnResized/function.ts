@@ -91,6 +91,8 @@ module.exports = functions.storage
 
     const { resizedSpotImageURLs } = spot;
     functions.logger.log(`before ${JSON.stringify({ resizedSpotImageURLs })}`);
+    // Match to IMAGE_SIZE_SUFFIX
+    // Example URL: firebasestorage.googleapis.com/v0/b/posusume-dev.appspot.com/o/users%2F{userID}%2Fspots%2F{spotID}%2Fresized%2F{imageID}_{IMAGE_SIZE_SUFFIX}?alt=...&token...
     if (resizedImageURL.includes(`_${thumbnailSuffix}`)) {
       resizedSpotImageURLs.thumbnail = resizedImageURL;
     }
