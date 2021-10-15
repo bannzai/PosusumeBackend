@@ -1,6 +1,7 @@
 import { Context } from "./context";
 import admin = require("firebase-admin");
 import express = require("express");
+import { Me } from "./generated/graphql";
 
 export const setUserIDForMe = async (
   request: express.Request
@@ -17,7 +18,8 @@ export const setUserIDForMe = async (
 
   const authorization = request.headers.authorization;
   if (authorization == null) {
-    throw "Authorization header not found";
+    // Allowed introspectino
+    return {} as Me;
   }
   const splited = authorization.split(" ");
   if (splited.length !== 2) {
