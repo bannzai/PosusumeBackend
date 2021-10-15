@@ -91,7 +91,7 @@ module.exports = functions.storage
 
     const { resizedSpotImageURLs } = spot;
     functions.logger.log(`before ${JSON.stringify({ resizedSpotImageURLs })}`);
-    if (resizedImageURL.includes(`_${thumbnailSuffix}/`)) {
+    if (resizedImageURL.includes(`_${thumbnailSuffix}`)) {
       resizedSpotImageURLs.thumbnail = resizedImageURL;
     }
     functions.logger.log(`after ${JSON.stringify({ resizedSpotImageURLs })}`);
