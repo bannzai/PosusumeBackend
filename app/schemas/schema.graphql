@@ -11,6 +11,7 @@ type Query {
     maxLatitude: Latitude!
     maxLongitude: Longitude!
   ): [Spot!]!
+  spot(id: ID!): Spot!
 }
 
 type Mutation {
