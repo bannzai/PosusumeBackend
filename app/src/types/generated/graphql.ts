@@ -51,6 +51,7 @@ export type Query = {
   __typename?: 'Query';
   me?: Maybe<Me>;
   spots: Array<Spot>;
+  spot: Spot;
 };
 
 
@@ -61,6 +62,16 @@ export type QuerySpotsArgs = {
   maxLongitude: Scalars['Longitude'];
 };
 
+
+export type QuerySpotArgs = {
+  id: Scalars['ID'];
+};
+
+/**
+ * ResizedSpotImageURLs container of resized image URLs on Cloud Functions
+ * All of these properties are optional because they are determined asynchronously.
+ * Also, the newly added ResizedImageURL type will be null.
+ */
 export type ResizedSpotImageUrLs = {
   __typename?: 'ResizedSpotImageURLs';
   thumbnail?: Maybe<Scalars['URL']>;
@@ -245,6 +256,7 @@ export type NodeResolvers<ContextType = Context, ParentType extends ResolversPar
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   me?: Resolver<Maybe<ResolversTypes['Me']>, ParentType, ContextType>;
   spots?: Resolver<Array<ResolversTypes['Spot']>, ParentType, ContextType, RequireFields<QuerySpotsArgs, 'minLatitude' | 'minLongitude' | 'maxLatitude' | 'maxLongitude'>>;
+  spot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<QuerySpotArgs, 'id'>>;
 }>;
 
 export type ResizedSpotImageUrLsResolvers<ContextType = Context, ParentType extends ResolversParentTypes['ResizedSpotImageURLs'] = ResolversParentTypes['ResizedSpotImageURLs']> = ResolversObject<{
