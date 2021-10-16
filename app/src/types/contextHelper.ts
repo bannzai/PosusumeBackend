@@ -23,6 +23,9 @@ export const setUserIDForMe = async (
     }
   }
 
+  if (authorization == null) {
+    throw "Authorization header not found";
+  }
   const splited = authorization.split(" ");
   if (splited.length !== 2) {
     throw "Unexpected Authorization header format";
