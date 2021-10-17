@@ -105,7 +105,7 @@ module.exports = functions.storage
     );
   });
 
-const thumbnailSuffix = "120x160";
+const thumbnailSuffix = "100x140";
 
 function buildStorageURL(args: {
   userID: string;
