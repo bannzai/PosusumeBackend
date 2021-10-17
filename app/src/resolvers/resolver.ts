@@ -31,7 +31,7 @@ export const resolvers: Resolvers = {
 
       const spotCollectionGroupReference = await _context.database
         .collectionGroup(`spots`)
-        .where(FirebaseFirestore.FieldPath.documentId(), "==", _args.id)
+        .where("id", "==", _args.id)
         .get();
 
       if (spotCollectionGroupReference.docs.length === 1) {
