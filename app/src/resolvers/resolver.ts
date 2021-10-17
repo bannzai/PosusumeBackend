@@ -26,10 +26,22 @@ export const resolvers: Resolvers = {
       return spotCollectionGroup.docs.map((doc) => doc.data() as Spot);
     },
     spot: async (_parent, _args, _context, _info) => {
-      const spotDocument = await _context.database
-        .doc(`users/${_context.me.id}/spots/${_args.id}`)
+      const { id } = _args;
+      console.log(JSON.stringify({ id }));
+
+      const spotCollectionGroupReference = await _context.database
+        .collectionGroup(`spots`)
+        .where("id", "==", _args.id)
         .get();
-      const spot = spotDocument.data();
+
+      if (spotCollectionGroupReference.docs.length === 1) {
+        console.error(
+          `unexpected fetched collection reference length is not 1. count: ${spotCollectionGroupReference.docs.length}. for id: ${id}`
+        );
+      }
+
+      const spotDocumentReference = spotCollectionGroupReference.docs[0];
+      const spot = spotDocumentReference.data();
       if (spot == null) {
         console.error(`unexpected spot is null for spotID: ${_args.id}`);
       }
