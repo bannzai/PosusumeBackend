@@ -5,6 +5,7 @@ export const spotResolver: SpotResolvers = {
     const documentRef = await _context.database
       .doc(`users/${_parent.authorID!}`)
       .get();
-    return documentRef.data() as User;
+    const author = documentRef.data();
+    return author as User;
   },
 };

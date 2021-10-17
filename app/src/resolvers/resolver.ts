@@ -25,6 +25,16 @@ export const resolvers: Resolvers = {
         .get();
       return spotCollectionGroup.docs.map((doc) => doc.data() as Spot);
     },
+    spot: async (_parent, _args, _context, _info) => {
+      const spotDocument = await _context.database
+        .doc(`users/${_context.me.id}/spots/${_args.id}`)
+        .get();
+      const spot = spotDocument.data();
+      if (spot == null) {
+        console.error(`unexpected spot is null for spotID: ${_args.id}`);
+      }
+      return spot as Spot;
+    },
   },
   Spot: spotResolver,
   Me: meResolver,
