@@ -2,7 +2,7 @@ import * as functions from "firebase-functions";
 import admin = require("firebase-admin");
 import { Spot } from "../../../src/types/generated/graphql";
 
-export const database = admin.firestore();
+const database = admin.firestore();
 
 module.exports = functions.storage
   .object()
