@@ -12,6 +12,9 @@
     },
     "auth": {
       "port": 9099
+    },
+    "storage": {
+      "port": 8099
     }
   },
   "functions": {
