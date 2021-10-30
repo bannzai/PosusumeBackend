@@ -10,3 +10,4 @@ node_modules/
 
 ui-debug.log
 firestore-debug.log
+firebase-debug.log
