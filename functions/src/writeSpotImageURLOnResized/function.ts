@@ -1,6 +1,6 @@
 import * as functions from "firebase-functions";
 import admin = require("firebase-admin");
-import { Spot } from "../../../src/types/generated/graphql";
+import { Spot } from "../../../api/src/types/generated/graphql";
 
 const database = admin.firestore();
 
