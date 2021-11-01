@@ -35,7 +35,7 @@ jobs:
     - run: make secret
       env:
         FIREBASE_FUNCTIONS_SERVICE_ACCOUNT_JSON: ${{ secrets.DEV_FIREBASE_FUNCTIONS_SERVICE_ACCOUNT_JSON }}
-    - run: yarn install -g firebase-tools
+    - run: yarn global add firebase-tools
     - run: yarn install
     - run: yarn workspacees run build
     - run: yarn workspacees run test
