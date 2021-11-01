@@ -26,14 +26,4 @@ describe("test with database", () => {
       .get();
     expect(snapshot.data()!.dummy).to.equal(true);
   });
-  it("should write document successfully 2", async () => {
-    await database
-      .doc("users/test_user_identifier/spots/test_spot_identifier")
-      .set({ dummy: true });
-
-    const snapshot = await database
-      .doc("users/test_user_identifier/spots/test_spot_identifier")
-      .get();
-    expect(snapshot.data()!.dummy).to.equal(false);
-  });
 });
