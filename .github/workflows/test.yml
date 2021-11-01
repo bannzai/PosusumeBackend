@@ -18,9 +18,6 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         node-version: '14'
-    - run: make secret
-      env:
-        FIREBASE_FUNCTIONS_SERVICE_ACCOUNT_JSON: ${{ secrets.DEV_FIREBASE_FUNCTIONS_SERVICE_ACCOUNT_JSON }}
     - run: yarn install
     - run: yarn workspaces run build
   test:
@@ -32,9 +29,6 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         node-version: '14'
-    - run: make secret
-      env:
-        FIREBASE_FUNCTIONS_SERVICE_ACCOUNT_JSON: ${{ secrets.DEV_FIREBASE_FUNCTIONS_SERVICE_ACCOUNT_JSON }}
     - run: yarn global add firebase-tools
     - run: yarn install
     - run: yarn workspaces run build
