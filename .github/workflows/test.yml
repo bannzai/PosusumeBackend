@@ -37,5 +37,6 @@ jobs:
         APP_FIRESTORE_DATABASE_URL: ${{ secrets.DEV_APP_FIRESTORE_DATABASE_URL }}
         APP_STORAGE_BUCKET: ${{ secrets.DEV_APP_STORAGE_BUCKET }}
         GCP_PROJECT_ID: ${{ secrets.POSUSUME_DEV_GCP_PROJECT_ID }}
+        FIREBASE_TOKEN: ${{ secrets.DEV_POSUSUME_FIREBASE_TOKEN }}
       working-directory: functions
 
