@@ -33,6 +33,7 @@ jobs:
       env:
         POSUSUME_FIREBASE_RUN_COMMAND_FILE: ${{ secrets.DEV_POSUSUME_FIREBASE_RUN_COMMAND_FILE }}
     - run: yarn global add firebase-tools
+    - run: firebase use development
     - run: yarn install
     - run: yarn workspaces run build
     - run: yarn workspaces run test
