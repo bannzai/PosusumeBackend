@@ -1,0 +1,47 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Test
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the main branch
+on:
+  pull_request:
+    branches: [ main, feature/* ]
+
+jobs:
+  build:
+    timeout-minutes: 1
+    runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.pull_request.title, '[Skip CI]') }}
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+    - run: make secret
+      env:
+        FIREBASE_FUNCTIONS_SERVICE_ACCOUNT_JSON: ${{ secrets.DEV_FIREBASE_FUNCTIONS_SERVICE_ACCOUNT_JSON }}
+    - run: npm install
+    - run: npm run build
+  test:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.pull_request.title, '[Skip CI]') }}
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+    - run: make secret
+      env:
+        FIREBASE_FUNCTIONS_SERVICE_ACCOUNT_JSON: ${{ secrets.DEV_FIREBASE_FUNCTIONS_SERVICE_ACCOUNT_JSON }}
+    - run: npm install -g firebase-tools
+    - run: npm install
+    - run: npm run build
+    - run: npm run test
+      env:
+        APP_FIRESTORE_DATABASE_URL: ${{ secrets.DEV_APP_FIRESTORE_DATABASE_URL }}
+        APP_STORAGE_BUCKET: ${{ secrets.DEV_APP_STORAGE_BUCKET }}
+        GCP_PROJECT_ID: ${{ secrets.POSUSUME_DEV_GCP_PROJECT_ID }}
+      working-directory: functions
+
