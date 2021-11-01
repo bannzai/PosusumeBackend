@@ -19,8 +19,8 @@ jobs:
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@master
       with:
-        project_id: ${{ secrets.POSUSUME_DEV_GCP_PROJECT_ID }}
-        service_account_key: ${{ secrets.POSUSUME_DEV_GCP_SERVICE_ACCOUNT_KEY }}
+        project_id: ${{ secrets.DEV_POSUSUME_GCP_PROJECT_ID }}
+        service_account_key: ${{ secrets.DEV_POSUSUME_GCP_SERVICE_ACCOUNT_KEY }}
         export_default_credentials: true
     - run: gcloud auth configure-docker --quiet
     - run: docker build -t $DOCKER_IMAGE --target runner ./app
@@ -29,7 +29,7 @@ jobs:
       env:
         SERVICE_NAME: ${{ secrets.SERVICE_NAME }}
         PORT: ${{ secrets.PORT }}
-        GCP_PROJECT_ID: ${{ secrets.POSUSUME_DEV_GCP_PROJECT_ID }}
+        GCP_PROJECT_ID: ${{ secrets.DEV_POSUSUME_GCP_PROJECT_ID }}
         GCP_REGION: ${{ secrets.GCP_REGION }}
       run: |
           gcloud run deploy $SERVICE_NAME \
