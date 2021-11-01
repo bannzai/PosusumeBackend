@@ -22,7 +22,7 @@ jobs:
       env:
         FIREBASE_FUNCTIONS_SERVICE_ACCOUNT_JSON: ${{ secrets.DEV_FIREBASE_FUNCTIONS_SERVICE_ACCOUNT_JSON }}
     - run: yarn install
-    - run: yarn workspacees run build
+    - run: yarn workspaces run build
   test:
     timeout-minutes: 5
     runs-on: ubuntu-latest
@@ -37,8 +37,8 @@ jobs:
         FIREBASE_FUNCTIONS_SERVICE_ACCOUNT_JSON: ${{ secrets.DEV_FIREBASE_FUNCTIONS_SERVICE_ACCOUNT_JSON }}
     - run: yarn global add firebase-tools
     - run: yarn install
-    - run: yarn workspacees run build
-    - run: yarn workspacees run test
+    - run: yarn workspaces run build
+    - run: yarn workspaces run test
       env:
         APP_FIRESTORE_DATABASE_URL: ${{ secrets.DEV_APP_FIRESTORE_DATABASE_URL }}
         APP_STORAGE_BUCKET: ${{ secrets.DEV_APP_STORAGE_BUCKET }}
