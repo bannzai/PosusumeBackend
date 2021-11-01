@@ -29,7 +29,7 @@ jobs:
       env:
         SERVICE_NAME: ${{ secrets.SERVICE_NAME }}
         PORT: ${{ secrets.PORT }}
-        GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+        GCP_PROJECT_ID: ${{ secrets.POSUSUME_DEV_GCP_PROJECT_ID }}
         GCP_REGION: ${{ secrets.GCP_REGION }}
       run: |
           gcloud run deploy $SERVICE_NAME \
