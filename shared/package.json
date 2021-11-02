@@ -1,5 +1,5 @@
 {
-  "name": "shared",
+  "name": "@posusume/shared",
   "version": "1.0.0",
   "scripts": {
     "lint": "eslint --ext .js,.ts .",

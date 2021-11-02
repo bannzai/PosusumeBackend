@@ -1,5 +1,5 @@
 {
-  "name": "api",
+  "name": "@posusume/api",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -28,6 +28,6 @@
     "firebase-admin": "^9.11.1",
     "graphql": "^15.6.0",
     "graphql-scalars": "^1.10.1",
-    "shared": "1.0.0"
+    "@posusume/shared": "1.0.0"
   }
 }
