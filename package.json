@@ -1,4 +1,4 @@
 {
   "private": true,
-  "workspaces": ["shared", "api", "functions"]
+  "workspaces": ["packages/*"]
 }
