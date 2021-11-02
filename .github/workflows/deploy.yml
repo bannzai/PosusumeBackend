@@ -11,7 +11,7 @@ on:
 env:
   DOCKER_IMAGE: ${{ secrets.DEV_POSUSUME_DOCKER_IMAGE_BASE_PATH }}:${{ github.sha }}
 jobs:
-  deploy:
+  deploy-api:
     runs-on: ubuntu-latest
     if: ${{ !contains(github.event.pull_request.title, '[Skip CI]') }}
     steps:
@@ -29,4 +29,23 @@ jobs:
         DEV_POSUSUME_API_PORT: ${{ secrets.DEV_POSUSUME_API_PORT}}
         DEV_POSUSUME_GCP_PROJECT_ID: ${{ secrets.DEV_POSUSUME_GCP_PROJECT_ID }}
         DEV_POSUSUME_GCP_REGION: ${{ secrets.DEV_POSUSUME_GCP_REGION }}
-      run: ./api/scripts/deploy_dev.sh
+        FIREBASE_TOKEN: ${{ secrets.DEV_POSUSUME_FIREBASE_TOKEN }}
+      run: npm run deploy:dev
+      working-directory: api
+  deploy-functions:
+    runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.pull_request.title, '[Skip CI]') }}
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+    - run: yarn global add firebase-tools
+    - run: yarn install
+    - run: yarn workspaces run build
+    - run: |
+        firebase use development
+        npm run deploy:dev
+      env:
+        FIREBASE_TOKEN: ${{ secrets.DEV_POSUSUME_FIREBASE_TOKEN }}
+      working-directory: functions
