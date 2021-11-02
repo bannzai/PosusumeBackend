@@ -40,6 +40,9 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         node-version: '14'
+    - run: make secret
+      env:
+        POSUSUME_FIREBASE_RUN_COMMAND_FILE: ${{ secrets.DEV_POSUSUME_FIREBASE_RUN_COMMAND_FILE }}
     - run: yarn global add firebase-tools
     - run: yarn install
     - run: yarn workspaces run build
