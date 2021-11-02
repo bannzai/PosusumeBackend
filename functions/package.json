@@ -8,9 +8,9 @@
     "serve": "npm run build && firebase emulators:start --only functions",
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
-    "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "test": "firebase emulators:exec 'mocha --reporter spec lib/functions/src/test/**/*.test.js'"
+    "test": "firebase emulators:exec 'mocha --reporter spec lib/functions/src/test/**/*.test.js'",
+    "deploy:dev": "firebase use development && yarn run build && firebase deploy --only functions"
   },
   "engines": {
     "node": "14"
