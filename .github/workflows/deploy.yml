@@ -9,7 +9,7 @@ on:
     branches: [ main ]
 
 env:
-  DOCKER_IMAGE: ${{ secrets.DEV_POSUSUME_DOCKER_IMAGE_BASE_PATH }}:${{ github.sha }}
+  DEV_POSUSUME_DOCKER_IMAGE_BASE_PATH: ${{ secrets.DEV_POSUSUME_DOCKER_IMAGE_BASE_PATH }}:${{ github.sha }}
 jobs:
   deploy-api:
     runs-on: ubuntu-latest
