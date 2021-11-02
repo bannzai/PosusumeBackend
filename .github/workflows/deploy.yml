@@ -9,7 +9,7 @@ on:
     branches: [ main ]
 
 env:
-  DOCKER_IMAGE: ${{ secrets.DOCKER_IMAGE_BASE_PATH }}:${{ github.sha }}
+  DOCKER_IMAGE: ${{ secrets.DEV_POSUSUME_DOCKER_IMAGE_BASE_PATH }}:${{ github.sha }}
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -23,20 +23,10 @@ jobs:
         service_account_key: ${{ secrets.DEV_POSUSUME_GCP_SERVICE_ACCOUNT_KEY }}
         export_default_credentials: true
     - run: gcloud auth configure-docker --quiet
-    - run: docker build -t $DOCKER_IMAGE --target runner ./app
-    - run: docker push $DOCKER_IMAGE
     - name: Deploy to Cloud Run
       env:
-        SERVICE_NAME: ${{ secrets.SERVICE_NAME }}
-        PORT: ${{ secrets.PORT }}
-        GCP_PROJECT_ID: ${{ secrets.DEV_POSUSUME_GCP_PROJECT_ID }}
-        GCP_REGION: ${{ secrets.GCP_REGION }}
-      run: |
-          gcloud run deploy $SERVICE_NAME \
-            --image $DOCKER_IMAGE \
-            --port $PORT \
-            --project $GCP_PROJECT_ID \
-            --region $GCP_REGION \
-            --set-env-vars APP_ENVIRONMENT=DEVELOPMENT
-            --allow-unauthenticated \
-            --quiet
+        DEV_POSUSUME_SERVICE_NAME: ${{ secrets.DEV_POSUSUME_SERVICE_NAME }}
+        DEV_POSUSUME_API_PORT: ${{ secrets.DEV_POSUSUME_API_PORT}}
+        DEV_POSUSUME_GCP_PROJECT_ID: ${{ secrets.DEV_POSUSUME_GCP_PROJECT_ID }}
+        DEV_POSUSUME_GCP_REGION: ${{ secrets.DEV_POSUSUME_GCP_REGION }}
+      run: ./api/scripts/deploy_dev.sh
