@@ -11,6 +11,6 @@
   "compileOnSave": true,
   "include": [
     "src",
-    "../api/src/types/generated"
+    "../shared/types/generated"
   ]
 }
