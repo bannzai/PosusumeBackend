@@ -10,7 +10,8 @@
     "prod": "yarn run build && node src/index.ts",
     "firebase": "firebase emulators:start",
     "codegen": "graphql-codegen --config codegen.yml",
-    "test": "echo 'TEST IS NOT EXISTS'"
+    "test": "echo 'TEST IS NOT EXISTS'",
+    "deploy:dev": "scripts/deploy_dev.sh"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.0.1",
