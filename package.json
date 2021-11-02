@@ -1,4 +1,4 @@
 {
   "private": true,
-  "workspaces": ["api", "functions"]
+  "workspaces": ["shared", "api", "functions"]
 }
