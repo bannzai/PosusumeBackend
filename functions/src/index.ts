@@ -1,5 +1,5 @@
 import admin = require("firebase-admin");
 admin.initializeApp();
 
-exports.writeSpotImageURLOnResized = require("./writeSpotImageURLOnResized/function");
-exports.setUserID = require("./setUserID/function");
+exports.writeSpotImageURLOnResized = require("./functions/writeSpotImageURLOnResized/function");
+exports.setUserID = require("./functions/setUserID/function");
