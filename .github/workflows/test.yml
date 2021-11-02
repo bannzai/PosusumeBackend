@@ -33,13 +33,11 @@ jobs:
       env:
         POSUSUME_FIREBASE_RUN_COMMAND_FILE: ${{ secrets.DEV_POSUSUME_FIREBASE_RUN_COMMAND_FILE }}
     - run: yarn global add firebase-tools
-    - run: firebase use development
-      working-directory: functions
-      env:
-        FIREBASE_TOKEN: ${{ secrets.DEV_POSUSUME_FIREBASE_TOKEN }}
     - run: yarn install
     - run: yarn workspaces run build
-    - run: yarn workspaces run test
+    - run: |
+        firebase use development
+        yarn workspaces run test
       env:
         APP_FIRESTORE_DATABASE_URL: ${{ secrets.DEV_APP_FIRESTORE_DATABASE_URL }}
         APP_STORAGE_BUCKET: ${{ secrets.DEV_APP_STORAGE_BUCKET }}
