@@ -5,7 +5,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "ts-node src/index.ts",
-    "local": "ts-node-dev --respawn src/index.ts",
+    "dev:watch": "ts-node-dev --respawn src/index.ts",
     "prod": "yarn run build && node src/index.ts",
     "firebase": "firebase emulators:start",
     "codegen": "graphql-codegen --config codegen.yml",
@@ -24,10 +24,10 @@
     "@graphql-tools/graphql-file-loader": "^7.0.3",
     "@graphql-tools/load": "^7.1.5",
     "@graphql-tools/schema": "^8.1.0",
-    "@posusume/shared": "1.0.0",
     "apollo-server": "^3.1.2",
     "firebase-admin": "^9.11.1",
     "graphql": "^15.6.0",
-    "graphql-scalars": "^1.10.1"
+    "graphql-scalars": "^1.10.1",
+    "@posusume/shared": "1.0.0"
   }
 }

@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "scripts": {
     "lint": "eslint --ext .js,.ts .",
-    "local": "echo shared skip local command",
     "build": "tsc"
   }
 }
