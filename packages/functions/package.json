@@ -9,7 +9,8 @@
     "start": "npm run shell",
     "logs": "firebase functions:log",
     "test": "firebase emulators:exec 'mocha --reporter spec lib/functions/src/test/**/*.test.js'",
-    "deploy:dev": "firebase use development && yarn run build && firebase deploy --only functions"
+    "deploy:dev": "firebase use development && yarn run build && firebase deploy --only functions",
+    "local": "FIRESTORE_EMULATOR_HOST=localhost:8089 firebase emulators:start --ui"
   },
   "engines": {
     "node": "14"
