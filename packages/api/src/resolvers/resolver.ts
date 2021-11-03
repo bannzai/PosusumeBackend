@@ -34,7 +34,7 @@ export const resolvers: Resolvers = {
         .where("id", "==", id)
         .get();
 
-      if (spotCollectionGroupReference.docs.length === 1) {
+      if (spotCollectionGroupReference.docs.length !== 1) {
         console.error(
           `unexpected fetched collection reference length is not 1. count: ${spotCollectionGroupReference.docs.length}. for id: ${id}`
         );
