@@ -1,4 +1,7 @@
 {
   "private": true,
-  "workspaces": ["packages/*"]
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "local": "FIRESTORE_EMULATOR_HOST=localhost:8089 firebase emulators:exec --config=packages/functions/firebase.json --ui 'yarn workspace @posusume/api dev:watch'"
+  }
 }
