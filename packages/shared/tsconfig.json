@@ -1,5 +1,6 @@
 {
   "extends": "../../tsconfig.json",
+  "type": "module",
   "compilerOptions": {
     "outDir": "lib" /* Specify an output folder for all emitted files. */
   }
