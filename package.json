@@ -1,4 +1,7 @@
 {
   "private": true,
-  "workspaces": ["api", "functions"]
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "local": "firebase emulators:exec --config=packages/functions/firebase.json --ui 'yarn workspace @posusume/api dev:watch'"
+  }
 }

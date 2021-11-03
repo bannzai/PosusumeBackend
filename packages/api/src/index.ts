@@ -1,11 +1,11 @@
-import { ApolloServer, AuthenticationError } from "apollo-server";
+import { ApolloServer } from "apollo-server";
 import { loadSchemaSync } from "@graphql-tools/load";
 import { GraphQLFileLoader } from "@graphql-tools/graphql-file-loader";
 import { addResolversToSchema } from "@graphql-tools/schema";
 import { join } from "path";
 import admin = require("firebase-admin");
 import { resolvers } from "./resolvers/resolver";
-import { setUserIDForMe } from "./types/contextHelper";
+import { setUserIDForMe } from "@posusume/shared/types/contextHelper";
 
 admin.initializeApp();
 

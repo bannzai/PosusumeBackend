@@ -1,6 +1,6 @@
 import { spotResolver } from "../domain/spot/resolver";
 import { meResolver } from "../domain/me/resolver";
-import { Resolvers, Spot } from "../types/generated/graphql";
+import { Resolvers, Spot } from "@posusume/shared/types/generated/graphql";
 import admin = require("firebase-admin");
 import { GraphQLLatitude, GraphQLLongitude } from "graphql-scalars";
 
@@ -31,10 +31,10 @@ export const resolvers: Resolvers = {
 
       const spotCollectionGroupReference = await _context.database
         .collectionGroup(`spots`)
-        .where("id", "==", _args.id)
+        .where("id", "==", id)
         .get();
 
-      if (spotCollectionGroupReference.docs.length === 1) {
+      if (spotCollectionGroupReference.docs.length !== 1) {
         console.error(
           `unexpected fetched collection reference length is not 1. count: ${spotCollectionGroupReference.docs.length}. for id: ${id}`
         );

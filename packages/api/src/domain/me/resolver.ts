@@ -1,4 +1,4 @@
-import { MeResolvers, Spot } from "../../types/generated/graphql";
+import { MeResolvers } from "@posusume/shared/types/generated/graphql";
 
 export const meResolver: MeResolvers = {
   spots: async (_parent, _args, _context) => {
