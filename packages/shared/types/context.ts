@@ -1,5 +1,5 @@
 import { Me } from "./me";
-import admin = require("firebase-admin");
+require("firebase-admin");
 
 export type Context = {
   me: Me;
