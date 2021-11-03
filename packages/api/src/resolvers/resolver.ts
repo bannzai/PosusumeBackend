@@ -33,8 +33,6 @@ export const resolvers: Resolvers = {
         .collectionGroup(`spots`)
         .where("id", "==", id)
         .get();
-      const length = spotCollectionGroupReference.docs.length;
-      console.log(JSON.stringify({ length }));
 
       if (spotCollectionGroupReference.docs.length !== 1) {
         console.error(
@@ -44,7 +42,6 @@ export const resolvers: Resolvers = {
 
       const spotDocumentReference = spotCollectionGroupReference.docs[0];
       const spot = spotDocumentReference.data();
-      console.log(JSON.stringify({ spot }));
       if (spot == null) {
         console.error(`unexpected spot is null for spotID: ${_args.id}`);
       }
