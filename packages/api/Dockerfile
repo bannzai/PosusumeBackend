@@ -1,24 +1,24 @@
 FROM node:14.17.6-alpine as builder
-WORKDIR /app
 
-COPY package.json yarn.lock ./
-COPY tsconfig.json ./
+WORKDIR /workspace
+COPY ./ ./
+
 RUN yarn install
-
-COPY src /app/src
-COPY schemas /app/schemas
-
-RUN yarn run build
+RUN yarn workspace @posusume/api run build
 
 FROM node:14.17.6-alpine as runner
-WORKDIR /app
+WORKDIR /workspace
 
-COPY --from=builder /app/build /app/build
-COPY package.json yarn.lock ./
-COPY schemas /app/schemas
+RUN mkdir -p /workspace/packages/api/schemas
+RUN mkdir -p /workspace/packages/shared
+COPY --from=builder /workspace/package.json /workspace/yarn.lock /workspace
+COPY --from=builder /workspace/packages/shared /workspace/packages/shared
+COPY --from=builder /workspace/packages/api/package.json /workspace/packages/api/yarn.lock /workspace/packages/api
+COPY --from=builder /workspace/packages/api/build /workspace/packages/api/build
+COPY --from=builder /workspace/packages/api/schemas /workspace/packages/api/schemas
 
 RUN NODE_ENV=production yarn install
 
 ENV PORT=8081
 EXPOSE $PORT
-CMD ["node", "./build/index.js"]
+CMD ["node", "/workspace/packages/api/build/index.js"]
