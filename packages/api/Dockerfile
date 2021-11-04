@@ -9,8 +9,6 @@ RUN yarn workspace @posusume/api run build
 FROM node:14.17.6-alpine as runner
 WORKDIR /workspace
 
-RUN mkdir -p /workspace/packages/api/schemas
-RUN mkdir -p /workspace/packages/shared
 COPY --from=builder /workspace/package.json /workspace/yarn.lock /workspace/
 COPY --from=builder /workspace/packages/shared /workspace/packages/shared/
 COPY --from=builder /workspace/packages/api/package.json /workspace/packages/api/yarn.lock /workspace/packages/api/
