@@ -6,7 +6,6 @@
     "build": "tsc",
     "test": "echo 'TEST IS NOT EXISTS'"
   },
-
   "devDependencies": {
     "@graphql-codegen/cli": "^2.0.1",
     "@graphql-codegen/typescript": "^2.0.0",
