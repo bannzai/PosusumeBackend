@@ -1101,6 +1101,18 @@
   resolved "https://registry.yarnpkg.com/@panva/asn1.js/-/asn1.js-1.0.0.tgz#dd55ae7b8129e02049f009408b97c61ccf9032f6"
   integrity sha512-UdkG3mLEqXgnlKsWanWcgb6dOjUzJ+XC5f+aWw30qrtjxeNUSfKX1cd5FBzOaXQumoe9nIqeZUvrRJS03HCCtw==
 
+"@posusume/shared@file:./packages/functions/posusume-shared-1.0.0.tgz":
+  version "1.0.0"
+  resolved "file:./packages/functions/posusume-shared-1.0.0.tgz#c2e3b00831f205f6cfa98f3f1fe5c264c41b96d3"
+  dependencies:
+    "@graphql-tools/graphql-file-loader" "^7.0.3"
+    "@graphql-tools/load" "^7.1.5"
+    "@graphql-tools/schema" "^8.1.0"
+    apollo-server "^3.1.2"
+    firebase-admin "^9.11.1"
+    graphql "^15.6.0"
+    graphql-scalars "^1.10.1"
+
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@protobufjs/aspromise/-/aspromise-1.1.2.tgz#9b8b0cc663d669a7d8f6f5d0893a14d348f30fbf"
