@@ -1,6 +1,7 @@
 {
   "name": "@posusume/shared",
   "version": "1.0.0",
+  "main": "lib/index.js",
   "scripts": {
     "lint": "eslint --ext .js,.ts .",
     "build": "tsc",
