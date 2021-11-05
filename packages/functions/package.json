@@ -8,13 +8,13 @@
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
     "logs": "firebase functions:log",
-    "test": "firebase emulators:exec 'mocha --reporter spec lib/test/**/*.test.js'",
+    "test": "firebase emulators:exec 'mocha --reporter spec lib/functions/src/test/**/*.test.js'",
     "deploy:dev": "firebase use development && yarn run build && firebase deploy --only functions"
   },
   "engines": {
     "node": "14"
   },
-  "main": "lib/index.js",
+  "main": "lib/functions/src/index.js",
   "dependencies": {
     "firebase-admin": "^9.8.0",
     "firebase-functions": "^3.14.1"
