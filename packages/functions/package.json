@@ -17,8 +17,7 @@
   "main": "lib/index.js",
   "dependencies": {
     "firebase-admin": "^9.8.0",
-    "firebase-functions": "^3.14.1",
-    "@posusume/shared": "file:./posusume-shared-1.0.0.tgz"
+    "firebase-functions": "^3.14.1"
   },
   "devDependencies": {
     "@types/chai": "^4.2.22",

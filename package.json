@@ -4,7 +4,6 @@
     "packages/*"
   ],
   "scripts": {
-    "preinstall": "npm pack ./packages/shared && mv posusume-shared-* packages/functions",
     "local": "firebase emulators:exec --config=packages/functions/firebase.json --ui 'yarn workspace @posusume/api dev:watch'"
   },
   "devDependencies": {
