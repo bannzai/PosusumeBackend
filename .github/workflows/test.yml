@@ -18,7 +18,7 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         node-version: '14.17.3'
-    - ruN: npm --version
+    - run: npm --version
     - run: npm pack ./packages/shared && mv posusume-shared-* packages/functions
     - run: yarn install --force
     - run: yarn workspaces run build
