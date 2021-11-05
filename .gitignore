@@ -4,4 +4,5 @@ node_modules
 firebase-debug.log
 firestore-debug.log
 ui-debug.log
-
+yarn-error.log
+posusume-shared-*
