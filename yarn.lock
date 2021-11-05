@@ -1100,9 +1100,9 @@
   resolved "https://registry.yarnpkg.com/@panva/asn1.js/-/asn1.js-1.0.0.tgz#dd55ae7b8129e02049f009408b97c61ccf9032f6"
   integrity sha512-UdkG3mLEqXgnlKsWanWcgb6dOjUzJ+XC5f+aWw30qrtjxeNUSfKX1cd5FBzOaXQumoe9nIqeZUvrRJS03HCCtw==
 
-"@posusume/shared@file:./packages/functions/posusume-shared-1.0.0.tgz":
+"@posusume/shared@file:posusume-shared-1.0.0.tgz":
   version "1.0.0"
-  resolved "file:./packages/functions/posusume-shared-1.0.0.tgz#9c86e7e5f3772cfff5df424aa5192fea7930b1e6"
+  resolved "file:posusume-shared-1.0.0.tgz#9c86e7e5f3772cfff5df424aa5192fea7930b1e6"
   dependencies:
     "@graphql-tools/graphql-file-loader" "^7.0.3"
     "@graphql-tools/load" "^7.1.5"

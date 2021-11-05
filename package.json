@@ -2,6 +2,7 @@
   "private": true,
   "workspaces": ["packages/*"],
   "scripts": {
+    "preinstall": "npm pack ./packages/shared",
     "local": "firebase emulators:exec --config=packages/functions/firebase.json --ui 'yarn workspace @posusume/api dev:watch'"
   },
   "devDependencies": {
