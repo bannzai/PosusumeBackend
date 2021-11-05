@@ -21,7 +21,7 @@
     "predeploy": [
       "yarn workspace @posusume/functions run build"
     ],
-    "source": "./"
+    "source": "packages/functions"
   },
   "storage": {
     "rules": "storage.rules"
