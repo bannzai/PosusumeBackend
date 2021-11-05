@@ -18,7 +18,7 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         node-version: '14.17.3'
-    - run: yarn install --force
+    - run: yarn install
     - run: yarn workspaces run build
   test:
     timeout-minutes: 5
@@ -33,7 +33,7 @@ jobs:
       env:
         POSUSUME_FIREBASE_RUN_COMMAND_FILE: ${{ secrets.DEV_POSUSUME_FIREBASE_RUN_COMMAND_FILE }}
     - run: yarn global add firebase-tools
-    - run: yarn install --force
+    - run: yarn install
     - run: yarn workspaces run build
     - run: |
         firebase use development
