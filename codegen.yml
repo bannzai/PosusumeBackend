@@ -9,9 +9,9 @@ generates:
       scalars:
         Latitude: number
         Longitude: number
-    plugins:
-      - typescript
-      - typescript-resolvers
-    ./packages/e2e/types/generated/graphql.ts:
+      plugins:
+        - typescript
+        - typescript-resolvers
+  ./packages/e2e/types/generated/graphql.ts:
       plugins:
         - typescript-apollo-client-helpers
