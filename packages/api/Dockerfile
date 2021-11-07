@@ -4,7 +4,7 @@ WORKDIR /workspace
 COPY ./ ./
 
 RUN yarn install
-RUN yarn workspace @posusume/shared run build
+RUN yarn workspace @posusume/graphql run build
 RUN yarn workspace @posusume/api run build
 
 FROM node:14.17.6-alpine as runner
