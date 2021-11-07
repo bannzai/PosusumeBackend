@@ -1,5 +1,5 @@
 {
-  "name": "@posusume/shared",
+  "name": "@posusume/graphql",
   "version": "1.0.0",
   "main": "lib/index.js",
   "scripts": {
