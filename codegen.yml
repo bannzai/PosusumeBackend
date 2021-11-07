@@ -1,7 +1,7 @@
 overwrite: true
 generates:
   ./packages/graphql/types/generated/graphql.ts:
-    schema: schemas/schema.graphql
+    schema: packages/graphql/schemas/schema.graphql
     config:
       useIndexSignature: true
       defaultMapper: Partial<{T}>
