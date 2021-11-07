@@ -5,7 +5,7 @@ generates:
     config:
       useIndexSignature: true
       defaultMapper: Partial<{T}>
-      contextType: packages/graphql/types/context#Context
+      contextType: ../context#Context
       scalars:
         Latitude: number
         Longitude: number
