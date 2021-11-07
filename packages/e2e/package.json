@@ -2,5 +2,8 @@
   "name": "e2e",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@graphql-codegen/typescript-apollo-client-helpers": "^2.1.7"
+  }
 }
