@@ -1,6 +1,6 @@
 import { spotResolver } from "../domain/spot/resolver";
 import { meResolver } from "../domain/me/resolver";
-import { Resolvers, Spot } from "@posusume/shared/types/generated/graphql";
+import { Resolvers, Spot } from "@posusume/graphql/types/generated/graphql";
 import admin = require("firebase-admin");
 import { GraphQLLatitude, GraphQLLongitude } from "graphql-scalars";
 
