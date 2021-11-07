@@ -1,13 +1,12 @@
 overwrite: true
 generates:
-  ./src/types/generated/graphql.ts:
+  ./packages/graphql/types/generated/graphql.ts:
     schema: schemas/schema.graphql
     config:
       useIndexSignature: true
       defaultMapper: Partial<{T}>
       contextType: ../context#Context
       scalars:
-        Upload: ../scalars#Upload
         Latitude: number
         Longitude: number
     plugins:
