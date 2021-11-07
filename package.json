@@ -4,7 +4,8 @@
     "packages/*"
   ],
   "scripts": {
-    "local": "firebase emulators:exec --config=packages/functions/firebase.json --ui 'yarn workspace @posusume/api dev:watch'"
+    "local": "firebase emulators:exec --config=packages/functions/firebase.json --ui 'yarn workspace @posusume/api dev:watch'",
+    "codegen": "graphql-codegen --config codegen.yml"
   },
   "devDependencies": {
     "chai": "^4.3.4",

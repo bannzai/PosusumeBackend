@@ -7,7 +7,6 @@
     "dev": "ts-node src/index.ts",
     "dev:watch": "ts-node-dev --respawn src/index.ts",
     "prod": "yarn run build && node src/index.ts",
-    "codegen": "graphql-codegen --config codegen.yml",
     "test": "echo 'TEST IS NOT EXISTS'",
     "deploy:dev": "scripts/deploy_dev.sh"
   },
