@@ -5,7 +5,7 @@ COMMIT_HASH=$(git rev-parse HEAD)
 DOCKER_IMAGE="$DEV_POSUSUME_DOCKER_IMAGE_BASE_PATH:$COMMIT_HASH"
 echo "docker build name and push to $DOCKER_IMAGE"
 
-# For COPY shared package
+# For COPY graphql package
 SCRIPT_DIR="$(cd `dirname $0` && pwd -P)"
 PROJECT_DIR="$(cd $SCRIPT_DIR && cd ../../.. && pwd -P)"
 cd $PROJECT_DIR
