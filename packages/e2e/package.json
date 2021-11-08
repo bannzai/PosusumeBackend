@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "build": "tsc",
     "test": "firebase emulators:exec 'mocha --reporter spec lib/test/**/*.test.js'"
   },
   "devDependencies": {
