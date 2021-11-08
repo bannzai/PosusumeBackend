@@ -9,7 +9,7 @@ import { setUserIDForMe } from "@posusume/graphql";
 
 admin.initializeApp();
 
-const schema = loadSchemaSync(join(__dirname, "../schemas/schema.graphql"), {
+const schema = loadSchemaSync(join(__dirname, "../../../schemas/schema.graphql"), {
   loaders: [new GraphQLFileLoader()],
 });
 
