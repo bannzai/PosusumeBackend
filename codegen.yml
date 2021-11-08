@@ -12,7 +12,3 @@ generates:
     plugins:
       - typescript
       - typescript-resolvers
-  ./packages/e2e/types/generated/graphql.ts:
-    schema: packages/e2e/schemas/schema.graphql
-    plugins:
-      - typescript-apollo-client-helpers
