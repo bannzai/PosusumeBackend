@@ -7,7 +7,7 @@
     "dev": "ts-node src/index.ts",
     "dev:watch": "ts-node-dev --respawn src/index.ts",
     "prod": "yarn run build && node src/index.ts",
-    "test": "echo 'TEST IS NOT EXISTS'",
+    "test": "firebase emulators:exec 'mocha --reporter spec lib/test/**/*.test.js'",
     "deploy:dev": "scripts/deploy_dev.sh"
   },
   "dependencies": {
