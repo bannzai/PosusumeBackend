@@ -8,7 +8,7 @@ import { setUserIDForMe } from "@posusume/graphql";
 import { ApolloServerExpressConfig } from "apollo-server-express";
 
 const schema = loadSchemaSync(
-  join(__dirname, "../../../schemas/schema.graphql"),
+  join(__dirname, "../../../graphql/schemas/schema.graphql"),
   {
     loaders: [new GraphQLFileLoader()],
   }
