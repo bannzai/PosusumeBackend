@@ -6,8 +6,6 @@ import { Me } from "./generated/graphql";
 export const setUserIDForMe = async (
   request: express.Request
 ): Promise<Context["me"]> => {
-  const authorization = request.headers.authorization;
-
   if (process.env["APP_ENVIRONMENT"] === "DEVELOPMENT") {
     if (
       process.env["APP_FIREBASE_AUTH_TEST_USER_ID"] != null &&
@@ -17,12 +15,13 @@ export const setUserIDForMe = async (
         id: process.env["APP_FIREBASE_AUTH_TEST_USER_ID"],
       };
     }
-    if (authorization == null) {
+    if (request.headers.authorization == null) {
       // Allowed introspectino
       return {} as Me;
     }
   }
 
+  const authorization = request.headers.authorization;
   if (authorization == null) {
     throw "Authorization header not found";
   }
