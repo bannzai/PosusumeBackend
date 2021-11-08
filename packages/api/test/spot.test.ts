@@ -65,12 +65,12 @@ describe("#spotAdd", () => {
     });
 
     expect(result.errors).to.be.undefined;
-    expect(result.data?.spot.id).to.be.equal("spot_test_identifier");
-    expect(result.data?.spot.title).to.be.equal("test_title");
-    expect(result.data?.spot.imageURL).to.be.equal(
+    expect(result.data?.spotAdd.spot.id).to.be.equal("spot_test_identifier");
+    expect(result.data?.spotAdd.spot.title).to.be.equal("test_title");
+    expect(result.data?.spotAdd.spot.imageURL).to.be.equal(
       "https://test.posusume.com/user/test_identifier/spots/spots_test_identifier/test.image.jpg"
     );
-    expect(result.data?.spot.geoPoint.latitude).to.be.equal(10);
-    expect(result.data?.spot.geoPoint.longitude).to.be.equal(10);
+    expect(result.data?.spotAdd.spot.geoPoint.latitude).to.be.equal(10);
+    expect(result.data?.spotAdd.spot.geoPoint.longitude).to.be.equal(10);
   });
 });
