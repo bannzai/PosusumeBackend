@@ -1,8 +1,0 @@
-mutation SpotAdd($spotAddInput: SpotAddInput!) {
-  spotAdd(input: $spotAddInput) {
-    spot {
-       id
-    }
-  }
-}
-
