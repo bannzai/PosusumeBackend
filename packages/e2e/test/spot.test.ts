@@ -27,3 +27,11 @@ describe("test with database", () => {
     expect(snapshot.data()!.dummy).to.equal(true);
   });
 });
+
+describe("#spotAdd", () => {
+   context("successfully add spot", () => {
+before("", () => {
+    
+});
+   });
+});
