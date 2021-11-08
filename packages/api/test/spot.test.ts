@@ -59,7 +59,7 @@ describe("#spotAdd", () => {
           imageURL:
             "https://test.posusume.com/user/test_identifier/spots/spots_test_identifier/test.image.jpg",
           latitude: 10,
-          longitude: 10,
+          longitude: 20,
         },
       },
     });
@@ -71,6 +71,6 @@ describe("#spotAdd", () => {
       "https://test.posusume.com/user/test_identifier/spots/spots_test_identifier/test.image.jpg"
     );
     expect(result.data?.spotAdd.spot.geoPoint.latitude).to.be.equal(10);
-    expect(result.data?.spotAdd.spot.geoPoint.longitude).to.be.equal(10);
+    expect(result.data?.spotAdd.spot.geoPoint.longitude).to.be.equal(20);
   });
 });
