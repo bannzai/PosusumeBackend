@@ -1,3 +1,5 @@
+process.env.APP_FIREBASE_AUTH_TEST_USER_ID = "test_identifier";
+process.env.APP_ENVIRONMENT = "DEVELOPMENT";
 process.env.FIRESTORE_EMULATOR_HOST = "localhost:8089";
 
 import { ApolloServer } from "apollo-server";
