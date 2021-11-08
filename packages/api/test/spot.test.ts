@@ -1,8 +1,10 @@
 process.env.FIRESTORE_EMULATOR_HOST = "localhost:8089";
 
+import { ApolloServer } from "apollo-server";
 import { expect } from "chai";
 
 import * as admin from "firebase-admin";
+import { config } from "../src/config";
 admin.initializeApp();
 const database = admin.firestore();
 
@@ -29,9 +31,39 @@ describe("test with database", () => {
 });
 
 describe("#spotAdd", () => {
-   context("successfully add spot", () => {
-before("", () => {
-    
-});
-   });
+  it("successfully add spot", async () => {
+    const server = new ApolloServer(config);
+
+    const result = await server.executeOperation({
+      query: `
+      mutation SpotAdd($spotAddInput: SpotAddInput!) {
+        spotAdd(input: $spotAddInput) {
+          spot {
+             id
+             title
+             imageURL
+             latitude
+             longitude
+          }
+        }
+      }
+      `,
+      variables: {
+        spotAddInput: {
+          id: "spot_test_identifier",
+          title: "test_title",
+          imageURL:
+            "https://test.posusume.com/user/test_identifier/spots/spots_test_identifier/test.image.jpg",
+          latitude: 10,
+          longitude: 10,
+        },
+      },
+    });
+    expect(result.errors).to.be.undefined;
+    expect(result.data?.spot.id).to.be.equal("spot_test_identifier");
+    expect(result.data?.spot.title).to.be.equal("test_title");
+    expect(result.data?.spot.title).to.be.equal(
+      "https://test.posusume.com/user/test_identifier/spots/spots_test_identifier/test.image.jpg"
+    );
+  });
 });
