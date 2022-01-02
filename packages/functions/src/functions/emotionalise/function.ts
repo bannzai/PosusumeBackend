@@ -1,4 +1,4 @@
-// Copied from https://github.com/firebase/functions-samples/blob/561d73b0357f4b03f4952242ee9513d57708f068/vision-annotate-images/functions/src/index.ts
+// Reference from https://github.com/firebase/functions-samples/blob/561d73b0357f4b03f4952242ee9513d57708f068/vision-annotate-images/functions/src/index.ts
 
 import * as functions from "firebase-functions";
 import vision from "@google-cloud/vision";
@@ -21,9 +21,6 @@ module.exports = functions.https.onCall(async (data, context) => {
       "annotateImage must be called while authenticated."
     );
   }
-  try {
-    return await client.annotateImage(JSON.parse(data));
-  } catch (e) {
-    throw new functions.https.HttpsError("internal", e.message, e.details);
-  }
+
+  return await client.labelDetection(JSON.parse(data));
 });
