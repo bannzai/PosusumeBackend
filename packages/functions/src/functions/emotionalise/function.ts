@@ -18,7 +18,7 @@ module.exports = functions.https.onCall(async (data, context) => {
   if (!context.auth) {
     throw new functions.https.HttpsError(
       "unauthenticated",
-      "annotateImage must be called while authenticated."
+      "emotionalise must be called while authenticated."
     );
   }
 
