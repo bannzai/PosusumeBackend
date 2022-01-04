@@ -22,5 +22,5 @@ module.exports = functions.https.onCall(async (data, context) => {
     );
   }
 
-  return await client.labelDetection(JSON.parse(JSON.stringify(data)));
+  return await client.annotateImage(JSON.parse(JSON.stringify(data)));
 });
