@@ -690,13 +690,13 @@
     stream-events "^1.0.1"
     xdg-basedir "^4.0.0"
 
-"@google-cloud/vision@^2.4.1":
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/@google-cloud/vision/-/vision-2.4.1.tgz#dab72e82cd66478bdaeb9c4e4c00c09a2d4f5441"
-  integrity sha512-IO5iwC/ZqLkBndBfOQTUiulSoxcj50oNWvkeKHRg8E0ZWDB56KPkKMgd+DDBxD1xQiOsjQEiKKr93LHYWNTZdg==
+"@google-cloud/vision@2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@google-cloud/vision/-/vision-2.1.2.tgz#85c44a313c7448111366197de454e60892d2d6aa"
+  integrity sha512-dD8FG/5upANHkx1QmWSlfpZxWHtnbVuveqGz9egkvA51ef7Zd/fghhMZFgH7NoUTZY4nLZoB3J3B3+/CAuJwZw==
   dependencies:
     "@google-cloud/promisify" "^2.0.0"
-    google-gax "^2.24.1"
+    google-gax "^2.3.1"
     is "^3.3.0"
 
 "@graphql-codegen/cli@^2.0.1":
@@ -3286,6 +3286,25 @@ google-gax@^2.24.1:
     protobufjs "6.11.2"
     retry-request "^4.0.0"
 
+google-gax@^2.3.1:
+  version "2.28.1"
+  resolved "https://registry.yarnpkg.com/google-gax/-/google-gax-2.28.1.tgz#99bc234b5769d901d70959d40bd1651729eb4a34"
+  integrity sha512-2Xjd3FrjlVd6Cmw2B2Aicpc/q92SwTpIOvxPUlnRg9w+Do8nu7UR+eQrgoKlo2FIUcUuDTvppvcx8toND0pK9g==
+  dependencies:
+    "@grpc/grpc-js" "~1.4.0"
+    "@grpc/proto-loader" "^0.6.1"
+    "@types/long" "^4.0.0"
+    abort-controller "^3.0.0"
+    duplexify "^4.0.0"
+    fast-text-encoding "^1.0.3"
+    google-auth-library "^7.6.1"
+    is-stream-ended "^0.1.4"
+    node-fetch "^2.6.1"
+    object-hash "^2.1.1"
+    proto3-json-serializer "^0.1.5"
+    protobufjs "6.11.2"
+    retry-request "^4.0.0"
+
 google-p12-pem@^3.0.3:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/google-p12-pem/-/google-p12-pem-3.1.2.tgz#c3d61c2da8e10843ff830fdb0d2059046238c1d4"
@@ -4805,7 +4824,14 @@ proto3-json-serializer@^0.1.1:
   resolved "https://registry.yarnpkg.com/proto3-json-serializer/-/proto3-json-serializer-0.1.5.tgz#c619769a59dc7fd8adf4e6c5060b9bf3039c8304"
   integrity sha512-G395jcZkgNXNeS+6FGqd09TsXeoCs9wmBWByDiwFy7Yd7HD8pyfyvf6q+rGh7PhT4AshRpG4NowzoKYUtkNjKg==
 
-protobufjs@6.11.2, protobufjs@^6.10.0, protobufjs@^6.8.6:
+proto3-json-serializer@^0.1.5:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/proto3-json-serializer/-/proto3-json-serializer-0.1.6.tgz#67cf3b8d5f4c8bebfc410698ad3b1ed64da39c7b"
+  integrity sha512-tGbV6m6Kad8NqxMh5hw87euPS0YoZSAOIfvR01zYkQV8Gpx1V/8yU/0gCKCvfCkhAJsjvzzhnnsdQxA1w7PSog==
+  dependencies:
+    protobufjs "^6.11.2"
+
+protobufjs@6.11.2, protobufjs@^6.10.0, protobufjs@^6.11.2, protobufjs@^6.8.6:
   version "6.11.2"
   resolved "https://registry.yarnpkg.com/protobufjs/-/protobufjs-6.11.2.tgz#de39fabd4ed32beaa08e9bb1e30d08544c1edf8b"
   integrity sha512-4BQJoPooKJl2G9j3XftkIXjoC9C0Av2NOrWmbLWT1vH32GcSUHjM0Arra6UfTsVyfMAuFzaLucXn1sadxJydAw==
