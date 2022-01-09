@@ -3,12 +3,12 @@ import { GraphQLFileLoader } from "@graphql-tools/graphql-file-loader";
 import { addResolversToSchema } from "@graphql-tools/schema";
 import { join } from "path";
 import admin = require("firebase-admin");
-import { resolvers } from "./resolvers/resolver";
+import { resolvers } from "../resolvers/resolver";
 import { setUserIDForMe } from "@posusume/graphql";
 import { ApolloServerExpressConfig } from "apollo-server-express";
 
 const schema = loadSchemaSync(
-  join(__dirname, "../../../packages/graphql/schemas/schema.graphql"),
+  join(__dirname, "../../../graphql/schemas/schema.graphql"),
   {
     loaders: [new GraphQLFileLoader()],
   }
