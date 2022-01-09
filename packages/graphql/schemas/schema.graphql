@@ -57,6 +57,7 @@ type User implements Node {
 type Me implements Node {
   id: ID!
   spots: [Spot!]!
+  isAnonymous: Boolean!
 }
 
 input SpotAddInput {
