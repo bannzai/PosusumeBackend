@@ -15,8 +15,6 @@ COPY --from=builder /workspace/packages/graphql/package.json /workspace/packages
 COPY --from=builder /workspace/packages/graphql/lib/ /workspace/packages/graphql/lib/
 COPY --from=builder /workspace/packages/api/package.json /workspace/packages/api/yarn.lock /workspace/packages/api/
 COPY --from=builder /workspace/packages/api/build/ /workspace/packages/api/build/
-COPY --from=builder /workspace/packages/api/build/src/ /workspace/packages/api/build/src/
-COPY --from=builder /workspace/packages/api/build/config/ /workspace/packages/api/build/config/
 COPY --from=builder /workspace/packages/graphql/schemas/ /workspace/packages/graphql/schemas/
 
 RUN NODE_ENV=production yarn install
