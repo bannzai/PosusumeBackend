@@ -39,6 +39,7 @@ jobs:
     - run: pwd
     - run: yarn workspaces run build
     - run: |
+        export APP_GRAPHQL_SCEHMA_RELATIVE_PATH="$GITHUB_WORKSPACE/$APP_GRAPHQL_SCEHMA_RELATIVE_PATH"
         firebase use development
         yarn workspaces run test
       name: Run test
@@ -47,5 +48,5 @@ jobs:
         APP_STORAGE_BUCKET: ${{ secrets.DEV_APP_STORAGE_BUCKET }}
         GCP_PROJECT_ID: ${{ secrets.DEV_POSUSUME_GCP_PROJECT_ID }}
         FIREBASE_TOKEN: ${{ secrets.DEV_POSUSUME_FIREBASE_TOKEN }}
-        APP_GRAPHQL_SCEHMA_PATH: ./packages/graphql/schemas
+        APP_GRAPHQL_SCEHMA_RELATIVE_PATH: packages/graphql/schemas
 
