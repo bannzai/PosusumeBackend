@@ -45,4 +45,5 @@ jobs:
         APP_STORAGE_BUCKET: ${{ secrets.DEV_APP_STORAGE_BUCKET }}
         GCP_PROJECT_ID: ${{ secrets.DEV_POSUSUME_GCP_PROJECT_ID }}
         FIREBASE_TOKEN: ${{ secrets.DEV_POSUSUME_FIREBASE_TOKEN }}
+        APP_GRAPHQL_SCHMA_PATH: packages/graphql/schemas
 
