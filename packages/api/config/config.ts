@@ -10,10 +10,7 @@ import { GraphQLSchema } from "graphql/type/schema";
 
 let schema: GraphQLSchema = (function () {
   return loadSchemaSync(
-    join(
-      process.env["APP_GRAPHQL_SCHMA_PATH"]!,
-      "schema.graphql"
-    ),
+    join(process.env["APP_GRAPHQL_SCEHMA_PATH"]!, "schema.graphql"),
     {
       loaders: [new GraphQLFileLoader()],
     }
