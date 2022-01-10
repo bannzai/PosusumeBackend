@@ -6,7 +6,7 @@ import { ApolloServer } from "apollo-server";
 import { expect } from "chai";
 
 import * as admin from "firebase-admin";
-import { config } from "../src/config";
+import { config } from "../../config/config";
 admin.initializeApp();
 const database = admin.firestore();
 

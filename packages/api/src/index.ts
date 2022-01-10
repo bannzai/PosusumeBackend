@@ -1,6 +1,6 @@
 import { ApolloServer } from "apollo-server";
 import admin = require("firebase-admin");
-import { config } from "./config";
+import { config } from "../config/config";
 
 admin.initializeApp();
 

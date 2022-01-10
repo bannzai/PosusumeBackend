@@ -3,16 +3,19 @@ import { GraphQLFileLoader } from "@graphql-tools/graphql-file-loader";
 import { addResolversToSchema } from "@graphql-tools/schema";
 import { join } from "path";
 import admin = require("firebase-admin");
-import { resolvers } from "./resolvers/resolver";
+import { resolvers } from "../src/resolvers/resolver";
 import { setUserIDForMe } from "@posusume/graphql";
 import { ApolloServerExpressConfig } from "apollo-server-express";
+import { GraphQLSchema } from "graphql/type/schema";
 
-const schema = loadSchemaSync(
-  join(__dirname, "../../../graphql/schemas/schema.graphql"),
-  {
-    loaders: [new GraphQLFileLoader()],
-  }
-);
+let schema: GraphQLSchema = (function () {
+  return loadSchemaSync(
+    join(process.env["APP_GRAPHQL_SCEHMA_PATH"]!, "schema.graphql"),
+    {
+      loaders: [new GraphQLFileLoader()],
+    }
+  );
+})();
 
 export const config: ApolloServerExpressConfig = {
   schema: addResolversToSchema({ schema, resolvers }),
