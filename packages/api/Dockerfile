@@ -15,10 +15,10 @@ COPY --from=builder /workspace/packages/graphql/package.json /workspace/packages
 COPY --from=builder /workspace/packages/graphql/lib/ /workspace/packages/graphql/lib/
 COPY --from=builder /workspace/packages/api/package.json /workspace/packages/api/yarn.lock /workspace/packages/api/
 COPY --from=builder /workspace/packages/api/build/ /workspace/packages/api/build/
-RUN ls /workspace/packages/api/build/
 COPY --from=builder /workspace/packages/graphql/schemas/ /workspace/packages/graphql/schemas/
 
 RUN NODE_ENV=production yarn install
+ENV APP_GRAPHQL_SCEHMA_PATH=/workspace/packages/graphql/schemas/
 
 ENV PORT=8081
 EXPOSE $PORT
