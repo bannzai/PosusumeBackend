@@ -32,8 +32,7 @@ jobs:
         DEV_POSUSUME_GCP_PROJECT_ID: ${{ secrets.DEV_POSUSUME_GCP_PROJECT_ID }}
         DEV_POSUSUME_GCP_REGION: ${{ secrets.DEV_POSUSUME_GCP_REGION }}
         FIREBASE_TOKEN: ${{ secrets.DEV_POSUSUME_FIREBASE_TOKEN }}
-      run: |
-        npm run deploy:dev
+      run: npm run deploy:dev
       working-directory: packages/api
   deploy-functions:
     runs-on: ubuntu-latest
