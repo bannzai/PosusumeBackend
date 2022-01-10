@@ -38,7 +38,7 @@ jobs:
     - run: yarn run codegen
     - run: yarn workspaces run build
     - run: |
-        export APP_GRAPHQL_SCEHMA_RELATIVE_PATH="$GITHUB_WORKSPACE/$APP_GRAPHQL_SCEHMA_RELATIVE_PATH"
+        export APP_GRAPHQL_SCEHMA_PATH="$GITHUB_WORKSPACE/$APP_GRAPHQL_SCEHMA_RELATIVE_PATH"
         firebase use development
         yarn workspaces run test
       name: Run test
