@@ -1,7 +1,7 @@
 {
   "name": "@posusume/api",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "build": "tsc",
     "dev": "ts-node src/index.ts",

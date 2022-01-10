@@ -18,7 +18,8 @@ COPY --from=builder /workspace/packages/api/build/ /workspace/packages/api/build
 COPY --from=builder /workspace/packages/graphql/schemas/ /workspace/packages/graphql/schemas/
 
 RUN NODE_ENV=production yarn install
+ENV APP_GRAPHQL_SCEHMA_PATH=/workspace/packages/graphql/schemas/
 
 ENV PORT=8081
 EXPOSE $PORT
-CMD ["node", "/workspace/packages/api/build/index.js"]
+CMD ["node", "/workspace/packages/api/build/src/index.js"]
