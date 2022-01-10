@@ -36,6 +36,7 @@ jobs:
     - run: yarn global add firebase-tools
     - run: yarn install
     - run: yarn run codegen
+    - run: pwd
     - run: yarn workspaces run build
     - run: |
         firebase use development
