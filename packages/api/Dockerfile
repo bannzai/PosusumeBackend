@@ -21,4 +21,4 @@ RUN NODE_ENV=production yarn install
 
 ENV PORT=8081
 EXPOSE $PORT
-CMD ["node", "/workspace/packages/api/build/index.js"]
+CMD ["node", "/workspace/packages/api/build/src/index.js"]
