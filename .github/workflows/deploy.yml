@@ -49,6 +49,7 @@ jobs:
     - run: yarn install
     - run: yarn workspaces run build
     - run: |
+        export APP_GRAPHQL_SCEHMA_PATH="$GITHUB_WORKSPACE/$APP_GRAPHQL_SCEHMA_RELATIVE_PATH"
         firebase use development
         npm run deploy:dev
       name: Run deploy

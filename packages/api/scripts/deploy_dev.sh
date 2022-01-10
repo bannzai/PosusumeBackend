@@ -10,8 +10,6 @@ SCRIPT_DIR="$(cd `dirname $0` && pwd -P)"
 PROJECT_DIR="$(cd $SCRIPT_DIR && cd ../../.. && pwd -P)"
 cd $PROJECT_DIR
 
-export ENV_APP_GRAPHQL_SCEHMA_PATH=${APP_GRAPHQL_SCEHMA_PATH:"$GITHUB_WORKSPACE/$APP_GRAPHQL_SCEHMA_RELATIVE_PATH"} 
-
 # Avoid error for M1 mac
 # https://stackoverflow.com/questions/66127933/cloud-run-failed-to-start-and-then-listen-on-the-port-defined-by-the-port-envi
 docker build --platform linux/amd64 -t "$DOCKER_IMAGE" --target runner . -f packages/api/Dockerfile
@@ -21,6 +19,6 @@ gcloud run deploy $DEV_POSUSUME_SERVICE_NAME \
   --port $DEV_POSUSUME_API_PORT \
   --project $DEV_POSUSUME_GCP_PROJECT_ID \
   --region $DEV_POSUSUME_GCP_REGION \
-  --set-env-vars APP_FIREBASE_AUTH_TEST_USER_ID=${APP_FIREBASE_AUTH_TEST_USER_ID:-""},APP_ENVIRONMENT=DEVELOPMENT,APP_GRAPHQL_SCEHMA_PATH="$ENV_APP_GRAPHQL_SCEHMA_PATH" \
+  --set-env-vars APP_FIREBASE_AUTH_TEST_USER_ID=${APP_FIREBASE_AUTH_TEST_USER_ID:-""},APP_ENVIRONMENT=DEVELOPMENT,APP_GRAPHQL_SCEHMA_PATH=$APP_GRAPHQL_SCEHMA_PATH \
   --allow-unauthenticated \
   --quiet
