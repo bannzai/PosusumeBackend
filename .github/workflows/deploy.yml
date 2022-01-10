@@ -51,5 +51,7 @@ jobs:
     - run: |
         firebase use development
         npm run deploy:dev
+      name: Run deploy
       env:
         FIREBASE_TOKEN: ${{ secrets.DEV_POSUSUME_FIREBASE_TOKEN }}
+        APP_GRAPHQL_SCEHMA_RELATIVE_PATH: packages/graphql/schemas
