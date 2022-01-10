@@ -40,6 +40,7 @@ jobs:
     - run: |
         firebase use development
         yarn workspaces run test
+      name: Run test
       env:
         APP_FIRESTORE_DATABASE_URL: ${{ secrets.DEV_APP_FIRESTORE_DATABASE_URL }}
         APP_STORAGE_BUCKET: ${{ secrets.DEV_APP_STORAGE_BUCKET }}
