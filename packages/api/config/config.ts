@@ -12,7 +12,7 @@ let schema: GraphQLSchema = (function () {
   return loadSchemaSync(
     join(
       process.env["APP_GRAPHQL_SCHMA_PATH"]!,
-      "../../graphql/schemas/schema.graphql"
+      "schema.graphql"
     ),
     {
       loaders: [new GraphQLFileLoader()],
