@@ -32,7 +32,7 @@ type Spot implements Node {
   authorID: ID!
   author: User!
   geoPoint: GeoPoint!
-  resizedSpotImageURLs: ResizedSpotImageURLs!
+  resizedSpotImageURLs: ResizedSpotImageURLs
 }
 
 """
