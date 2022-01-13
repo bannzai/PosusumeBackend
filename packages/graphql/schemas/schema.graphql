@@ -70,7 +70,7 @@ type ResizedUserProfileImageURLs {
 
 type Me implements Node {
   id: ID!
-  user: 
+  user: User!
   spots: [Spot!]!
 }
 
