@@ -32,7 +32,7 @@ type Spot implements Node {
   authorID: ID!
   author: User!
   geoPoint: GeoPoint!
-  resizedSpotImageURLs: ResizedSpotImageURLs
+  resizedSpotImageURLs: ResizedSpotImageURLs!
 }
 
 """
@@ -55,7 +55,7 @@ type User implements Node {
   name: String!
   displayName: String
   profileImageURL: URL
-  resizedProfileImageURLs: ResizedUserProfileImageURLs
+  resizedProfileImageURLs: ResizedUserProfileImageURLs!
 }
 
 """
