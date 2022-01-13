@@ -95,7 +95,7 @@ export type Spot = Node & {
   geoPoint: GeoPoint;
   id: Scalars['ID'];
   imageURL: Scalars['URL'];
-  resizedSpotImageURLs?: Maybe<ResizedSpotImageUrLs>;
+  resizedSpotImageURLs: ResizedSpotImageUrLs;
   title: Scalars['String'];
 };
 
@@ -118,7 +118,7 @@ export type User = Node & {
   id: Scalars['ID'];
   name: Scalars['String'];
   profileImageURL?: Maybe<Scalars['URL']>;
-  resizedProfileImageURLs?: Maybe<ResizedUserProfileImageUrLs>;
+  resizedProfileImageURLs: ResizedUserProfileImageUrLs;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -292,7 +292,7 @@ export type SpotResolvers<ContextType = Context, ParentType extends ResolversPar
   geoPoint?: Resolver<ResolversTypes['GeoPoint'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   imageURL?: Resolver<ResolversTypes['URL'], ParentType, ContextType>;
-  resizedSpotImageURLs?: Resolver<Maybe<ResolversTypes['ResizedSpotImageURLs']>, ParentType, ContextType>;
+  resizedSpotImageURLs?: Resolver<ResolversTypes['ResizedSpotImageURLs'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -311,7 +311,7 @@ export type UserResolvers<ContextType = Context, ParentType extends ResolversPar
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   profileImageURL?: Resolver<Maybe<ResolversTypes['URL']>, ParentType, ContextType>;
-  resizedProfileImageURLs?: Resolver<Maybe<ResolversTypes['ResizedUserProfileImageURLs']>, ParentType, ContextType>;
+  resizedProfileImageURLs?: Resolver<ResolversTypes['ResizedUserProfileImageURLs'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
