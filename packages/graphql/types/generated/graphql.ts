@@ -28,6 +28,7 @@ export type Me = Node & {
   __typename?: 'Me';
   id: Scalars['ID'];
   spots: Array<Spot>;
+  user: User;
 };
 
 export type Mutation = {
@@ -74,6 +75,16 @@ export type ResizedSpotImageUrLs = {
   thumbnail?: Maybe<Scalars['URL']>;
 };
 
+/**
+ * ResizedUserProfileImageURLs container of resized image URLs on Cloud Functions
+ * All of these properties are optional because they are determined asynchronously.
+ * Also, the newly added ResizedImageURL type will be null.
+ */
+export type ResizedUserProfileImageUrLs = {
+  __typename?: 'ResizedUserProfileImageURLs';
+  thumbnail?: Maybe<Scalars['URL']>;
+};
+
 export type Spot = Node & {
   __typename?: 'Spot';
   archivedDate?: Maybe<Scalars['Date']>;
@@ -84,7 +95,7 @@ export type Spot = Node & {
   geoPoint: GeoPoint;
   id: Scalars['ID'];
   imageURL: Scalars['URL'];
-  resizedSpotImageURLs: ResizedSpotImageUrLs;
+  resizedSpotImageURLs?: Maybe<ResizedSpotImageUrLs>;
   title: Scalars['String'];
 };
 
@@ -103,7 +114,11 @@ export type SpotAddPayload = {
 
 export type User = Node & {
   __typename?: 'User';
+  displayName?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
+  name: Scalars['String'];
+  profileImageURL?: Maybe<Scalars['URL']>;
+  resizedProfileImageURLs?: Maybe<ResizedUserProfileImageUrLs>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -187,6 +202,7 @@ export type ResolversTypes = ResolversObject<{
   Node: ResolversTypes['Me'] | ResolversTypes['Spot'] | ResolversTypes['User'];
   Query: ResolverTypeWrapper<{}>;
   ResizedSpotImageURLs: ResolverTypeWrapper<Partial<ResizedSpotImageUrLs>>;
+  ResizedUserProfileImageURLs: ResolverTypeWrapper<Partial<ResizedUserProfileImageUrLs>>;
   Spot: ResolverTypeWrapper<Partial<Spot>>;
   SpotAddInput: ResolverTypeWrapper<Partial<SpotAddInput>>;
   SpotAddPayload: ResolverTypeWrapper<Partial<SpotAddPayload>>;
@@ -208,6 +224,7 @@ export type ResolversParentTypes = ResolversObject<{
   Node: ResolversParentTypes['Me'] | ResolversParentTypes['Spot'] | ResolversParentTypes['User'];
   Query: {};
   ResizedSpotImageURLs: Partial<ResizedSpotImageUrLs>;
+  ResizedUserProfileImageURLs: Partial<ResizedUserProfileImageUrLs>;
   Spot: Partial<Spot>;
   SpotAddInput: Partial<SpotAddInput>;
   SpotAddPayload: Partial<SpotAddPayload>;
@@ -237,6 +254,7 @@ export interface LongitudeScalarConfig extends GraphQLScalarTypeConfig<Resolvers
 export type MeResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Me'] = ResolversParentTypes['Me']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   spots?: Resolver<Array<ResolversTypes['Spot']>, ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -260,6 +278,11 @@ export type ResizedSpotImageUrLsResolvers<ContextType = Context, ParentType exte
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type ResizedUserProfileImageUrLsResolvers<ContextType = Context, ParentType extends ResolversParentTypes['ResizedUserProfileImageURLs'] = ResolversParentTypes['ResizedUserProfileImageURLs']> = ResolversObject<{
+  thumbnail?: Resolver<Maybe<ResolversTypes['URL']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type SpotResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Spot'] = ResolversParentTypes['Spot']> = ResolversObject<{
   archivedDate?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
   author?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
@@ -269,7 +292,7 @@ export type SpotResolvers<ContextType = Context, ParentType extends ResolversPar
   geoPoint?: Resolver<ResolversTypes['GeoPoint'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   imageURL?: Resolver<ResolversTypes['URL'], ParentType, ContextType>;
-  resizedSpotImageURLs?: Resolver<ResolversTypes['ResizedSpotImageURLs'], ParentType, ContextType>;
+  resizedSpotImageURLs?: Resolver<Maybe<ResolversTypes['ResizedSpotImageURLs']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -284,7 +307,11 @@ export interface UrlScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes[
 }
 
 export type UserResolvers<ContextType = Context, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
+  displayName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  profileImageURL?: Resolver<Maybe<ResolversTypes['URL']>, ParentType, ContextType>;
+  resizedProfileImageURLs?: Resolver<Maybe<ResolversTypes['ResizedUserProfileImageURLs']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -298,6 +325,7 @@ export type Resolvers<ContextType = Context> = ResolversObject<{
   Node?: NodeResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   ResizedSpotImageURLs?: ResizedSpotImageUrLsResolvers<ContextType>;
+  ResizedUserProfileImageURLs?: ResizedUserProfileImageUrLsResolvers<ContextType>;
   Spot?: SpotResolvers<ContextType>;
   SpotAddPayload?: SpotAddPayloadResolvers<ContextType>;
   URL?: GraphQLScalarType;
