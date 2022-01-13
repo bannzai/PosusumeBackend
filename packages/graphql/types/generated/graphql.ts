@@ -114,7 +114,6 @@ export type SpotAddPayload = {
 
 export type User = Node & {
   __typename?: 'User';
-  displayName?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   name: Scalars['String'];
   profileImageURL?: Maybe<Scalars['URL']>;
@@ -307,7 +306,6 @@ export interface UrlScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes[
 }
 
 export type UserResolvers<ContextType = Context, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
-  displayName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   profileImageURL?: Resolver<Maybe<ResolversTypes['URL']>, ParentType, ContextType>;
