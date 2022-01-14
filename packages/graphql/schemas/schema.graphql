@@ -4,7 +4,7 @@ scalar Latitude
 scalar Longitude
 
 type Query {
-  me: Me
+  me: Me!
   spots(
     minLatitude: Latitude!
     minLongitude: Longitude!
