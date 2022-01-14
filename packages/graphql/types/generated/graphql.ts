@@ -47,7 +47,7 @@ export type Node = {
 
 export type Query = {
   __typename?: 'Query';
-  me?: Maybe<Me>;
+  me: Me;
   spot: Spot;
   spots: Array<Spot>;
 };
@@ -267,7 +267,7 @@ export type NodeResolvers<ContextType = Context, ParentType extends ResolversPar
 }>;
 
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  me?: Resolver<Maybe<ResolversTypes['Me']>, ParentType, ContextType>;
+  me?: Resolver<ResolversTypes['Me'], ParentType, ContextType>;
   spot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<QuerySpotArgs, 'id'>>;
   spots?: Resolver<Array<ResolversTypes['Spot']>, ParentType, ContextType, RequireFields<QuerySpotsArgs, 'maxLatitude' | 'maxLongitude' | 'minLatitude' | 'minLongitude'>>;
 }>;
