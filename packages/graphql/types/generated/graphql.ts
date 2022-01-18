@@ -18,15 +18,6 @@ export type Scalars = {
   URL: any;
 };
 
-export type EditMyNameInput = {
-  name: Scalars['String'];
-};
-
-export type EditMyNamePayload = {
-  __typename?: 'EditMyNamePayload';
-  me: Me;
-};
-
 export type GeoPoint = {
   __typename?: 'GeoPoint';
   latitude: Scalars['Latitude'];
@@ -42,18 +33,18 @@ export type Me = Node & {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  editMyName: EditMyNamePayload;
   spotAdd: SpotAddPayload;
-};
-
-
-export type MutationEditMyNameArgs = {
-  input: EditMyNameInput;
+  userNameUpdate: UserNameUpdatePayload;
 };
 
 
 export type MutationSpotAddArgs = {
   input: SpotAddInput;
+};
+
+
+export type MutationUserNameUpdateArgs = {
+  input: UserNameUpdateInput;
 };
 
 export type Node = {
@@ -135,6 +126,15 @@ export type User = Node & {
   resizedProfileImageURLs: ResizedUserProfileImageUrLs;
 };
 
+export type UserNameUpdateInput = {
+  name: Scalars['String'];
+};
+
+export type UserNameUpdatePayload = {
+  __typename?: 'UserNameUpdatePayload';
+  me: Me;
+};
+
 export type WithIndex<TObject> = TObject & Record<string, any>;
 export type ResolversObject<TObject> = WithIndex<TObject>;
 
@@ -207,8 +207,6 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = ResolversObject<{
   Boolean: ResolverTypeWrapper<Partial<Scalars['Boolean']>>;
   Date: ResolverTypeWrapper<Partial<Scalars['Date']>>;
-  EditMyNameInput: ResolverTypeWrapper<Partial<EditMyNameInput>>;
-  EditMyNamePayload: ResolverTypeWrapper<Partial<EditMyNamePayload>>;
   GeoPoint: ResolverTypeWrapper<Partial<GeoPoint>>;
   ID: ResolverTypeWrapper<Partial<Scalars['ID']>>;
   Latitude: ResolverTypeWrapper<Partial<Scalars['Latitude']>>;
@@ -225,14 +223,14 @@ export type ResolversTypes = ResolversObject<{
   String: ResolverTypeWrapper<Partial<Scalars['String']>>;
   URL: ResolverTypeWrapper<Partial<Scalars['URL']>>;
   User: ResolverTypeWrapper<Partial<User>>;
+  UserNameUpdateInput: ResolverTypeWrapper<Partial<UserNameUpdateInput>>;
+  UserNameUpdatePayload: ResolverTypeWrapper<Partial<UserNameUpdatePayload>>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
   Boolean: Partial<Scalars['Boolean']>;
   Date: Partial<Scalars['Date']>;
-  EditMyNameInput: Partial<EditMyNameInput>;
-  EditMyNamePayload: Partial<EditMyNamePayload>;
   GeoPoint: Partial<GeoPoint>;
   ID: Partial<Scalars['ID']>;
   Latitude: Partial<Scalars['Latitude']>;
@@ -249,16 +247,13 @@ export type ResolversParentTypes = ResolversObject<{
   String: Partial<Scalars['String']>;
   URL: Partial<Scalars['URL']>;
   User: Partial<User>;
+  UserNameUpdateInput: Partial<UserNameUpdateInput>;
+  UserNameUpdatePayload: Partial<UserNameUpdatePayload>;
 }>;
 
 export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
   name: 'Date';
 }
-
-export type EditMyNamePayloadResolvers<ContextType = Context, ParentType extends ResolversParentTypes['EditMyNamePayload'] = ResolversParentTypes['EditMyNamePayload']> = ResolversObject<{
-  me?: Resolver<ResolversTypes['Me'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
 
 export type GeoPointResolvers<ContextType = Context, ParentType extends ResolversParentTypes['GeoPoint'] = ResolversParentTypes['GeoPoint']> = ResolversObject<{
   latitude?: Resolver<ResolversTypes['Latitude'], ParentType, ContextType>;
@@ -282,8 +277,8 @@ export type MeResolvers<ContextType = Context, ParentType extends ResolversParen
 }>;
 
 export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
-  editMyName?: Resolver<ResolversTypes['EditMyNamePayload'], ParentType, ContextType, RequireFields<MutationEditMyNameArgs, 'input'>>;
   spotAdd?: Resolver<ResolversTypes['SpotAddPayload'], ParentType, ContextType, RequireFields<MutationSpotAddArgs, 'input'>>;
+  userNameUpdate?: Resolver<ResolversTypes['UserNameUpdatePayload'], ParentType, ContextType, RequireFields<MutationUserNameUpdateArgs, 'input'>>;
 }>;
 
 export type NodeResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = ResolversObject<{
@@ -338,9 +333,13 @@ export type UserResolvers<ContextType = Context, ParentType extends ResolversPar
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type UserNameUpdatePayloadResolvers<ContextType = Context, ParentType extends ResolversParentTypes['UserNameUpdatePayload'] = ResolversParentTypes['UserNameUpdatePayload']> = ResolversObject<{
+  me?: Resolver<ResolversTypes['Me'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type Resolvers<ContextType = Context> = ResolversObject<{
   Date?: GraphQLScalarType;
-  EditMyNamePayload?: EditMyNamePayloadResolvers<ContextType>;
   GeoPoint?: GeoPointResolvers<ContextType>;
   Latitude?: GraphQLScalarType;
   Longitude?: GraphQLScalarType;
@@ -354,5 +353,6 @@ export type Resolvers<ContextType = Context> = ResolversObject<{
   SpotAddPayload?: SpotAddPayloadResolvers<ContextType>;
   URL?: GraphQLScalarType;
   User?: UserResolvers<ContextType>;
+  UserNameUpdatePayload?: UserNameUpdatePayloadResolvers<ContextType>;
 }>;
 

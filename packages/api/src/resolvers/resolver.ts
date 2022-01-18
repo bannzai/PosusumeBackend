@@ -87,7 +87,7 @@ export const resolvers: Resolvers = {
         spot,
       };
     },
-    editMyName: async (_parent, { input }, _context) => {
+    userNameUpdate: async (_parent, { input }, _context) => {
       const name: Pick<User, "name"> = input;
 
       const users = await _context.database
