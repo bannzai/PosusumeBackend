@@ -88,7 +88,7 @@ export const resolvers: Resolvers = {
       };
     },
     userNameUpdate: async (_parent, { input }, _context) => {
-      const name: Pick<User, "name"> = input;
+      const { name } = input;
 
       const users = await _context.database
         .collection(`users`)
