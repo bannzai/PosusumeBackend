@@ -1,7 +1,6 @@
 import { spotResolver } from "../domain/spot/resolver";
 import { meResolver } from "../domain/me/resolver";
 import {
-  Me,
   Resolvers,
   Spot,
   User,
