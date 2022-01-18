@@ -1,6 +1,11 @@
 import { spotResolver } from "../domain/spot/resolver";
 import { meResolver } from "../domain/me/resolver";
-import { Resolvers, Spot } from "@posusume/graphql/types/generated/graphql";
+import {
+  Me,
+  Resolvers,
+  Spot,
+  User,
+} from "@posusume/graphql/types/generated/graphql";
 import admin = require("firebase-admin");
 import { GraphQLLatitude, GraphQLLongitude } from "graphql-scalars";
 
@@ -80,6 +85,17 @@ export const resolvers: Resolvers = {
 
       return {
         spot,
+      };
+    },
+    editMyName: async (_parent, { input }, _context) => {
+      const name: Pick<User, "name"> = input;
+      await _context.database
+        .doc(`users/${_context.me.id}`)
+        .set({ name }, { merge: true });
+
+      const me = _context.me as any;
+      return {
+        me,
       };
     },
   },
