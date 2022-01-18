@@ -7,6 +7,7 @@ import {
 } from "@posusume/graphql/types/generated/graphql";
 import admin = require("firebase-admin");
 import { GraphQLLatitude, GraphQLLongitude } from "graphql-scalars";
+import { UserInputError } from "apollo-server";
 
 export const resolvers: Resolvers = {
   Query: {
@@ -88,6 +89,17 @@ export const resolvers: Resolvers = {
     },
     editMyName: async (_parent, { input }, _context) => {
       const name: Pick<User, "name"> = input;
+
+      const users = await _context.database
+        .collection(`users`)
+        .where("name", "==", name)
+        .get();
+      if (users.docs.length > 0) {
+        throw new UserInputError("User name already exists", {
+          invalidArgs: ["name"],
+        });
+      }
+
       await _context.database
         .doc(`users/${_context.me.id}`)
         .set({ name }, { merge: true });
