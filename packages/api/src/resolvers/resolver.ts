@@ -1,8 +1,13 @@
 import { spotResolver } from "../domain/spot/resolver";
 import { meResolver } from "../domain/me/resolver";
-import { Resolvers, Spot } from "@posusume/graphql/types/generated/graphql";
+import {
+  Resolvers,
+  Spot,
+  User,
+} from "@posusume/graphql/types/generated/graphql";
 import admin = require("firebase-admin");
 import { GraphQLLatitude, GraphQLLongitude } from "graphql-scalars";
+import { UserInputError } from "apollo-server";
 
 export const resolvers: Resolvers = {
   Query: {
@@ -80,6 +85,29 @@ export const resolvers: Resolvers = {
 
       return {
         spot,
+      };
+    },
+    userNameUpdate: async (_parent, { input }, _context) => {
+      const userName: Pick<User, "name"> = input;
+      const { name } = userName;
+
+      const users = await _context.database
+        .collection(`users`)
+        .where("name", "==", name)
+        .get();
+      if (users.docs.length > 0) {
+        throw new UserInputError("User name already exists", {
+          invalidArgs: ["name"],
+        });
+      }
+
+      await _context.database
+        .doc(`users/${_context.me.id}`)
+        .set({ name }, { merge: true });
+
+      const me = _context.me as any;
+      return {
+        me,
       };
     },
   },

@@ -4,7 +4,7 @@ scalar Latitude
 scalar Longitude
 
 type Query {
-  me: Me
+  me: Me!
   spots(
     minLatitude: Latitude!
     minLongitude: Longitude!
@@ -16,6 +16,7 @@ type Query {
 
 type Mutation {
   spotAdd(input: SpotAddInput!): SpotAddPayload!
+  userNameUpdate(input: UserNameUpdateInput!): UserNameUpdatePayload!
 }
 
 interface Node {
@@ -52,10 +53,24 @@ type GeoPoint {
 
 type User implements Node {
   id: ID!
+  name: String!
+  profileImageURL: URL
+  resizedProfileImageURLs: ResizedUserProfileImageURLs!
+}
+
+"""
+ResizedUserProfileImageURLs container of resized image URLs on Cloud Functions
+All of these properties are optional because they are determined asynchronously.
+Also, the newly added ResizedImageURL type will be null.
+"""
+type ResizedUserProfileImageURLs {
+  # 120x120. For example, it is used on the Map
+  thumbnail: URL
 }
 
 type Me implements Node {
   id: ID!
+  user: User!
   spots: [Spot!]!
 }
 
@@ -70,4 +85,12 @@ input SpotAddInput {
 
 type SpotAddPayload {
   spot: Spot!
+}
+
+input UserNameUpdateInput {
+  name: String!
+}
+
+type UserNameUpdatePayload {
+  me: Me!
 }

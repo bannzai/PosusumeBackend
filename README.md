@@ -1,6 +1,14 @@
 
 ## Development
 
+```
+$ yarn run local
+```
+
+Testing API, Open http://localhost:8081/.
+Add mock data to Firestore, Open http://localhost:4000/.
+
+
 ### Environment
 
 |  Name  |  Description  |  Example  |
@@ -16,3 +24,4 @@ $ cd app/
 $ yarn firebase
 $ yarn dev
 ```
+

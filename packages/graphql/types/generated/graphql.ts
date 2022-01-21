@@ -28,16 +28,23 @@ export type Me = Node & {
   __typename?: 'Me';
   id: Scalars['ID'];
   spots: Array<Spot>;
+  user: User;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   spotAdd: SpotAddPayload;
+  userNameUpdate: UserNameUpdatePayload;
 };
 
 
 export type MutationSpotAddArgs = {
   input: SpotAddInput;
+};
+
+
+export type MutationUserNameUpdateArgs = {
+  input: UserNameUpdateInput;
 };
 
 export type Node = {
@@ -46,7 +53,7 @@ export type Node = {
 
 export type Query = {
   __typename?: 'Query';
-  me?: Maybe<Me>;
+  me: Me;
   spot: Spot;
   spots: Array<Spot>;
 };
@@ -71,6 +78,16 @@ export type QuerySpotsArgs = {
  */
 export type ResizedSpotImageUrLs = {
   __typename?: 'ResizedSpotImageURLs';
+  thumbnail?: Maybe<Scalars['URL']>;
+};
+
+/**
+ * ResizedUserProfileImageURLs container of resized image URLs on Cloud Functions
+ * All of these properties are optional because they are determined asynchronously.
+ * Also, the newly added ResizedImageURL type will be null.
+ */
+export type ResizedUserProfileImageUrLs = {
+  __typename?: 'ResizedUserProfileImageURLs';
   thumbnail?: Maybe<Scalars['URL']>;
 };
 
@@ -104,6 +121,18 @@ export type SpotAddPayload = {
 export type User = Node & {
   __typename?: 'User';
   id: Scalars['ID'];
+  name: Scalars['String'];
+  profileImageURL?: Maybe<Scalars['URL']>;
+  resizedProfileImageURLs: ResizedUserProfileImageUrLs;
+};
+
+export type UserNameUpdateInput = {
+  name: Scalars['String'];
+};
+
+export type UserNameUpdatePayload = {
+  __typename?: 'UserNameUpdatePayload';
+  me: Me;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -187,12 +216,15 @@ export type ResolversTypes = ResolversObject<{
   Node: ResolversTypes['Me'] | ResolversTypes['Spot'] | ResolversTypes['User'];
   Query: ResolverTypeWrapper<{}>;
   ResizedSpotImageURLs: ResolverTypeWrapper<Partial<ResizedSpotImageUrLs>>;
+  ResizedUserProfileImageURLs: ResolverTypeWrapper<Partial<ResizedUserProfileImageUrLs>>;
   Spot: ResolverTypeWrapper<Partial<Spot>>;
   SpotAddInput: ResolverTypeWrapper<Partial<SpotAddInput>>;
   SpotAddPayload: ResolverTypeWrapper<Partial<SpotAddPayload>>;
   String: ResolverTypeWrapper<Partial<Scalars['String']>>;
   URL: ResolverTypeWrapper<Partial<Scalars['URL']>>;
   User: ResolverTypeWrapper<Partial<User>>;
+  UserNameUpdateInput: ResolverTypeWrapper<Partial<UserNameUpdateInput>>;
+  UserNameUpdatePayload: ResolverTypeWrapper<Partial<UserNameUpdatePayload>>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -208,12 +240,15 @@ export type ResolversParentTypes = ResolversObject<{
   Node: ResolversParentTypes['Me'] | ResolversParentTypes['Spot'] | ResolversParentTypes['User'];
   Query: {};
   ResizedSpotImageURLs: Partial<ResizedSpotImageUrLs>;
+  ResizedUserProfileImageURLs: Partial<ResizedUserProfileImageUrLs>;
   Spot: Partial<Spot>;
   SpotAddInput: Partial<SpotAddInput>;
   SpotAddPayload: Partial<SpotAddPayload>;
   String: Partial<Scalars['String']>;
   URL: Partial<Scalars['URL']>;
   User: Partial<User>;
+  UserNameUpdateInput: Partial<UserNameUpdateInput>;
+  UserNameUpdatePayload: Partial<UserNameUpdatePayload>;
 }>;
 
 export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
@@ -237,11 +272,13 @@ export interface LongitudeScalarConfig extends GraphQLScalarTypeConfig<Resolvers
 export type MeResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Me'] = ResolversParentTypes['Me']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   spots?: Resolver<Array<ResolversTypes['Spot']>, ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
   spotAdd?: Resolver<ResolversTypes['SpotAddPayload'], ParentType, ContextType, RequireFields<MutationSpotAddArgs, 'input'>>;
+  userNameUpdate?: Resolver<ResolversTypes['UserNameUpdatePayload'], ParentType, ContextType, RequireFields<MutationUserNameUpdateArgs, 'input'>>;
 }>;
 
 export type NodeResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = ResolversObject<{
@@ -250,12 +287,17 @@ export type NodeResolvers<ContextType = Context, ParentType extends ResolversPar
 }>;
 
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  me?: Resolver<Maybe<ResolversTypes['Me']>, ParentType, ContextType>;
+  me?: Resolver<ResolversTypes['Me'], ParentType, ContextType>;
   spot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<QuerySpotArgs, 'id'>>;
   spots?: Resolver<Array<ResolversTypes['Spot']>, ParentType, ContextType, RequireFields<QuerySpotsArgs, 'maxLatitude' | 'maxLongitude' | 'minLatitude' | 'minLongitude'>>;
 }>;
 
 export type ResizedSpotImageUrLsResolvers<ContextType = Context, ParentType extends ResolversParentTypes['ResizedSpotImageURLs'] = ResolversParentTypes['ResizedSpotImageURLs']> = ResolversObject<{
+  thumbnail?: Resolver<Maybe<ResolversTypes['URL']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type ResizedUserProfileImageUrLsResolvers<ContextType = Context, ParentType extends ResolversParentTypes['ResizedUserProfileImageURLs'] = ResolversParentTypes['ResizedUserProfileImageURLs']> = ResolversObject<{
   thumbnail?: Resolver<Maybe<ResolversTypes['URL']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -285,6 +327,14 @@ export interface UrlScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes[
 
 export type UserResolvers<ContextType = Context, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  profileImageURL?: Resolver<Maybe<ResolversTypes['URL']>, ParentType, ContextType>;
+  resizedProfileImageURLs?: Resolver<ResolversTypes['ResizedUserProfileImageURLs'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type UserNameUpdatePayloadResolvers<ContextType = Context, ParentType extends ResolversParentTypes['UserNameUpdatePayload'] = ResolversParentTypes['UserNameUpdatePayload']> = ResolversObject<{
+  me?: Resolver<ResolversTypes['Me'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -298,9 +348,11 @@ export type Resolvers<ContextType = Context> = ResolversObject<{
   Node?: NodeResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   ResizedSpotImageURLs?: ResizedSpotImageUrLsResolvers<ContextType>;
+  ResizedUserProfileImageURLs?: ResizedUserProfileImageUrLsResolvers<ContextType>;
   Spot?: SpotResolvers<ContextType>;
   SpotAddPayload?: SpotAddPayloadResolvers<ContextType>;
   URL?: GraphQLScalarType;
   User?: UserResolvers<ContextType>;
+  UserNameUpdatePayload?: UserNameUpdatePayloadResolvers<ContextType>;
 }>;
 
