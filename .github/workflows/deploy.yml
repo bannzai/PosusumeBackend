@@ -10,6 +10,9 @@ on:
   pull_request:
     branches: [ main, feature/* ]
 
+permissions:
+  contents: read
+
 env:
   DEV_POSUSUME_DOCKER_IMAGE_BASE_PATH: ${{ secrets.DEV_POSUSUME_DOCKER_IMAGE_BASE_PATH }}
 jobs:
